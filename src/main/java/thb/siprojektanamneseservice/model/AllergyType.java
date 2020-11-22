@@ -7,5 +7,4 @@ public enum AllergyType {
     NAHRUNGSMITTEL,
     POLLEN,
     ROENTGENKONTRASTMITTEL;
-
 }
