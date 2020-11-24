@@ -32,7 +32,7 @@ public class Patient implements Serializable {
 
     private String phoneNumber;
     private String email;
-    private String gender;
+    private Gender gender;
     private String maritalStatus;
     private boolean children;
     private List<AllergyType> allergiesList = new ArrayList<>();
