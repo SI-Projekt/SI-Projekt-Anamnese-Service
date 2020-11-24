@@ -1,6 +1,12 @@
 package thb.siprojektanamneseservice.model;
 
 public enum Gender {
-    W,
-    M;
+    Woman("W"),
+    Man("M");
+
+    private final String gender;
+
+    Gender(String gender) {
+        this.gender = gender;
+    }
 }
