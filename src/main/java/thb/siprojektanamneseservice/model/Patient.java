@@ -29,13 +29,19 @@ public class Patient implements Serializable {
     @ManyToOne
     @JoinColumn(name = "address_id")
     private Address address;
-
     private String phoneNumber;
     private String email;
     private Gender gender;
-    private String maritalStatus;
+    private MaritalStatus maritalStatus;
     private boolean children;
-    private List<AllergyType> allergiesList = new ArrayList<>();
+
     private int height;
     private float weight;
+
+    private List<Diagnosis> diagnosisList = new ArrayList<>();
+    private List<AllergyType> allergiesList = new ArrayList<>();
+    private List<VegetativeAnamnesis> vegetativeAnamnesisList = new ArrayList<>();
+    private List<MedicationIntake> medicationIntakeList = new ArrayList<>();
+    private List<Disease> diseaseList = new ArrayList<>();
+    private List<FamilyAnamnesis> familyAnamnesisList = new ArrayList<>();
 }
