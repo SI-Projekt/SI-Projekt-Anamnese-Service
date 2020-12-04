@@ -2,16 +2,16 @@ package thb.siprojektanamneseservice.model;
 
 
 public enum AllergyType {
-    ANTIBIOTIKA("antibiotics"),
-    FRUCHTZUCKER("fructose"),
-    NAHRUNGSMITTEL("foods"),
+    ANTIBIOTICS("antibiotics"),
+    FRUCTOSE("fructose"),
+    FOODS("foods"),
     POLLEN("pollen"),
-    ROENTGENKONTRASTMITTEL("radio_opaque_substance"),
-    TIERHAAR("animal_hair"),
-    LOKALANAESTHETIKA("local_anaesthetics"),
-    MILCHZUCKER("lactose"),
-    HAUSSTAUB("House_dust"),
-    KONSERVIERUNGSSTOFFE("antidegradant"),
+    RADIO_OPAQUE_SUBSTANCE("radio_opaque_substance"),
+    ANIMAL_HAIR("animal_hair"),
+    LOCAL_ANAESTHETICS("local_anaesthetics"),
+    LACTOSE("lactose"),
+    HOUSE_DUST("House_dust"),
+    PRESERVATIVES("preservatives"),
     VITAMIN_B("vitamin_b");
 
     private final String allergyType;

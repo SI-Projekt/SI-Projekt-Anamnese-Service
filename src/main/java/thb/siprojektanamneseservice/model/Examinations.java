@@ -1,6 +1,6 @@
 package thb.siprojektanamneseservice.model;
 
-public enum TypeOfExamination {
+public enum Examinations {
 
     COMPUTER_TOMOGRAM("CT"),
     Magnetic_Resonance_Imaging("MRI"),
@@ -8,7 +8,7 @@ public enum TypeOfExamination {
 
     private final String typeOfExamination;
 
-    TypeOfExamination(String typeOfExamination) {
+    Examinations(String typeOfExamination) {
         this.typeOfExamination = typeOfExamination;
     }
 }

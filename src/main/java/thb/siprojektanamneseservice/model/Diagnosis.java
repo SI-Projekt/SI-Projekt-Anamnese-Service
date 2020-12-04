@@ -24,5 +24,5 @@ public class Diagnosis {
 
     private String date;
     private VegetativeAnamnesisDecision type;
-    private List<TypeOfExamination> typeOfExaminations;
+    private List<Examinations> examinations;
 }

@@ -2,10 +2,10 @@ package thb.siprojektanamneseservice.model;
 
 public enum MaritalStatus {
     SINGLE("single"),
-    PARTNERSCHAFT("civil_union"),
-    VERHEIRATET("married"),
-    GESCHIEDEN("divorced"),
-    VERWITWET("widowed");
+    CIVIL_UNION("civil_union"),
+    MARRIED("married"),
+    DIVORCED("divorced"),
+    WIDOWED("widowed");
 
     private final String maritalStatus;
 

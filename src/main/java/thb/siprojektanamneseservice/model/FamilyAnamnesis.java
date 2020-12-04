@@ -8,6 +8,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -21,6 +22,6 @@ public class FamilyAnamnesis {
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     private UUID id;
 
-    private PreExistingIllness father;
-    private PreExistingIllness mother;
+    private List<PreExistingIllness> father;
+    private List<PreExistingIllness> mother;
 }

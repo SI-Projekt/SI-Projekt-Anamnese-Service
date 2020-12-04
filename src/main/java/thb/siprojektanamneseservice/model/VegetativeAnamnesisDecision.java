@@ -2,13 +2,13 @@ package thb.siprojektanamneseservice.model;
 
 public enum VegetativeAnamnesisDecision {
 
-    BRENNEN("burning"),
-    DURCHFALL("diarrhea"),
-    DURCHFALL_MIT_BLUT("diarrhea_With_blood"),
+    BURNING("burning"),
+    DIARRHEA("diarrhea"),
+    DIARRHEA_WITH_BLOOD("diarrhea_With_blood"),
     NORMAL("normal"),
-    OEFTER("frequently"),
-    START_SCHWIERIGKEITEN("teething_troubles"),
-    VERMEHRT("increased");
+    FREQUENTLY("frequently"),
+    TEETHING_TROUBLES("teething_troubles"),
+    INCREASED("increased");
 
     private final String anamnesisDecision;
 
