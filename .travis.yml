@@ -2,3 +2,11 @@ language: java
 sudo: false
 jdk:
 - openjdk8
+cache:
+directories:
+  - $HOME/.m2
+maven_build:
+stage: build
+script:
+  #- "mvn clean package -Djava.awt.headless=true"
+  - "mvn clean verify"
