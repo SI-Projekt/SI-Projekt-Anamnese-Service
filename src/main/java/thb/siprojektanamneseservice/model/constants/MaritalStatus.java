@@ -1,4 +1,4 @@
-package thb.siprojektanamneseservice.model;
+package thb.siprojektanamneseservice.model.constants;
 
 public enum MaritalStatus {
     SINGLE("single"),
