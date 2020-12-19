@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
+import thb.siprojektanamneseservice.model.constants.AllergyType;
+import thb.siprojektanamneseservice.model.constants.Gender;
+import thb.siprojektanamneseservice.model.constants.MaritalStatus;
 
 import javax.persistence.*;
 import java.io.Serializable;
