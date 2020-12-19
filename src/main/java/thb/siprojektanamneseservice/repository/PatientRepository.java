@@ -6,5 +6,5 @@ import thb.siprojektanamneseservice.model.Patient;
 import java.util.UUID;
 
 public interface PatientRepository extends JpaRepository<Patient, UUID> {
-
+    int countByPatientId(UUID patientId);
 }

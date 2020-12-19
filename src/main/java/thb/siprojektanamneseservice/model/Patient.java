@@ -47,4 +47,16 @@ public class Patient implements Serializable {
     private List<MedicationIntake> medicationIntakeList = new ArrayList<>();
     private List<Disease> diseaseList = new ArrayList<>();
     private List<FamilyAnamnesis> familyAnamnesisList = new ArrayList<>();
+
+    private static Patient INSTANCE;
+
+    private Patient(UUID id){
+        this.setId(id);
+    }
+    public static Patient getInstance(UUID id){
+        if (INSTANCE == null){
+            INSTANCE = new Patient(id);
+        }
+        return INSTANCE;
+    }
 }

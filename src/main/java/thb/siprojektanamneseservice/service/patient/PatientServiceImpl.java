@@ -2,12 +2,13 @@ package thb.siprojektanamneseservice.service.patient;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import thb.siprojektanamneseservice.exceptions.ResourceBadRequestException;
 import thb.siprojektanamneseservice.exceptions.ResourceNotFoundException;
-import thb.siprojektanamneseservice.model.Diagnosis;
-import thb.siprojektanamneseservice.model.Patient;
-import thb.siprojektanamneseservice.repository.DiagnosisRepository;
-import thb.siprojektanamneseservice.repository.PatientRepository;
+import thb.siprojektanamneseservice.model.*;
+import thb.siprojektanamneseservice.repository.*;
+import thb.siprojektanamneseservice.transfert.PatientAnamnesisTO;
 import thb.siprojektanamneseservice.transfert.PatientTO;
+import thb.siprojektanamneseservice.transfert.PatientGetTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,71 +17,92 @@ import java.util.UUID;
 @Service
 public class PatientServiceImpl implements PatientService{
 
-    private PatientRepository patientRepository;
-    private DiagnosisRepository diagnosisRepository;
+    private final PatientRepository patientRepository;
 
     @Autowired
-    public PatientServiceImpl(PatientRepository patientRepository, DiagnosisRepository diagnosisRepository){
+    public PatientServiceImpl(PatientRepository patientRepository){
         this.patientRepository = patientRepository;
-        this.diagnosisRepository = diagnosisRepository;
+
     }
     @Override
     public List<Patient> listAllPatients() {
-        List<Patient> patients = new ArrayList<>();
-        patientRepository.findAll().forEach(patients::add);
-        return patients;
+        return  patientRepository.findAll();
     }
 
     @Override
     public Patient getPatientById(UUID patientId) throws ResourceNotFoundException {
-        Patient patient = patientRepository.findById(patientId).get();
-        if (patient == null){
-            throw  new ResourceNotFoundException(
-                    String.format("The request with the id %s does not exist", patientId.toString())
-            );
-        }
-        return patient;
+        return findPatient(patientId);
     }
 
+    /**
+     * @param patientTO
+     * @return The new created patient
+     */
     @Override
     public Patient createPatient(PatientTO patientTO) {
         Patient patient = new Patient();
 
-        List<Diagnosis> diagnosisList = findDiagnosis(patientTO.getId());
-
-        patient.setFirstName(patientTO.getFirstName());
-        patient.setLastName(patientTO.getLastName());
-        patient.setProfession(patientTO.getProfession());
-        patient.setPhoneNumber(patientTO.getPhoneNumber());
-        patient.setEmail(patientTO.getEmail());
-        patient.setChildren(patientTO.isChildren());
-        patient.setHeight(patientTO.getHeight());
-        patient.setWeight(patientTO.getWeight());
-        patient.setGender(patientTO.getGender());
-        patient.setMaritalStatus(patientTO.getMaritalStatus());
-        patient.setAllergiesList(patientTO.getAllergiesList());
-        patient.setDiagnosisList(diagnosisList);
+        PatientGetTO.setPatient(patientTO, patient);
 
         return patientRepository.save(patient);
     }
 
-    private List<Diagnosis> findDiagnosis(UUID id) {
-        return diagnosisRepository.findAllByPatientId(id);
-    }
 
     @Override
-    public Patient updatePatient(UUID patientId, Patient patient) throws ResourceNotFoundException {
-        if (patientId != null){
-            Patient oldPatient = patientRepository.findById(patientId).get();
-        }else {
-            throw new ResourceNotFoundException("Patient ID not found.");
+    public Patient createOrUpdateAnamnesis(UUID patientId, PatientAnamnesisTO patientAnamnesisTO) {
+
+        Patient patientFound = findPatient(patientId);
+
+        if (!patientFound.getId().equals(patientAnamnesisTO.getPatientId())){
+            Patient patient = Patient.getInstance(patientAnamnesisTO.getPatientId());
+            checkNumberUniqueness(patient);
+        }
+        PatientGetTO.setPatientAnamnesis(patientAnamnesisTO, patientFound);
+
+        return patientRepository.save(patientFound);
+    }
+
+
+    @Override
+    public Patient updatePatient(UUID patientId, PatientTO updatePatientTO) throws ResourceNotFoundException {
+        Patient patientFound = findPatient(patientId);
+
+        if (!patientFound.getId().equals(updatePatientTO.getId())){
+            Patient patient = Patient.getInstance(updatePatientTO.getId());
+            checkNumberUniqueness(patient);
         }
 
-        return null;
+        PatientGetTO.setPatient(updatePatientTO, patientFound);
+
+        return patientRepository.save(patientFound);
     }
+
 
     @Override
     public void deletePatient(UUID patientId) {
+        findPatient(patientId);
+        patientRepository.deleteById(patientId);
+    }
 
+    private void isPatientExist(UUID patientId, boolean isPresent, String mesage) {
+        if (isPresent) {
+            throw new ResourceNotFoundException(
+                    String.format(mesage, patientId.toString())
+            );
+        }
+    }
+
+    private Patient findPatient(UUID patientId) {
+        Patient patient = patientRepository.findById(patientId).get();
+        isPatientExist(patientId, !patientRepository.findById(patientId).isPresent(), "The request with the id %s does not exist");
+        return patient;
+    }
+
+    private void checkNumberUniqueness(Patient patient) {
+        if (patientRepository.countByPatientId(patient.getId()) > 0){
+            throw new ResourceBadRequestException(
+                    String.format("A passport with the number %s already exist", patient.getId())
+            );
+        }
     }
 }
