@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import thb.siprojektanamneseservice.exceptions.ResourceNotFoundException;
 import thb.siprojektanamneseservice.model.Diagnosis;
 import thb.siprojektanamneseservice.model.Patient;
+import thb.siprojektanamneseservice.repository.DiagnosisRepository;
 import thb.siprojektanamneseservice.repository.PatientRepository;
 import thb.siprojektanamneseservice.transfert.PatientTO;
 
@@ -16,11 +17,12 @@ import java.util.UUID;
 public class PatientServiceImpl implements PatientService{
 
     private PatientRepository patientRepository;
-    private Object diagnosisRepository;
+    private DiagnosisRepository diagnosisRepository;
 
     @Autowired
-    public PatientServiceImpl(PatientRepository patientRepository){
+    public PatientServiceImpl(PatientRepository patientRepository, DiagnosisRepository diagnosisRepository){
         this.patientRepository = patientRepository;
+        this.diagnosisRepository = diagnosisRepository;
     }
     @Override
     public List<Patient> listAllPatients() {
@@ -44,7 +46,7 @@ public class PatientServiceImpl implements PatientService{
     public Patient createPatient(PatientTO patientTO) {
         Patient patient = new Patient();
 
-        List<Diagnosis> diagnosis = findDiagnosis();
+        List<Diagnosis> diagnosisList = findDiagnosis(patientTO.getId());
 
         patient.setFirstName(patientTO.getFirstName());
         patient.setLastName(patientTO.getLastName());
@@ -57,13 +59,13 @@ public class PatientServiceImpl implements PatientService{
         patient.setGender(patientTO.getGender());
         patient.setMaritalStatus(patientTO.getMaritalStatus());
         patient.setAllergiesList(patientTO.getAllergiesList());
+        patient.setDiagnosisList(diagnosisList);
 
         return patientRepository.save(patient);
     }
 
-    private List<Diagnosis> findDiagnosis() {
-//        return diagnosisRepository.findAllByPatientId();
-        return  null;
+    private List<Diagnosis> findDiagnosis(UUID id) {
+        return diagnosisRepository.findAllByPatientId(id);
     }
 
     @Override
