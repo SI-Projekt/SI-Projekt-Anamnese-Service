@@ -4,12 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
-import thb.siprojektanamneseservice.model.constants.Examinations;
-import thb.siprojektanamneseservice.model.constants.VegetativeAnamnesisDecision;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+import thb.siprojektanamneseservice.model.constants.VegetativeAnamnesisDecisionValues;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -24,7 +24,18 @@ public class Diagnosis {
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     private UUID id;
 
+    @ManyToOne
+    @JoinColumn(name = "patient_Id", nullable = false)
+    private Patient patient;
+
+    //TODO
+    @ManyToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @JoinTable(name = "diagnosis_examination",
+            joinColumns = { @JoinColumn(name = "diagnosis_id") },
+            inverseJoinColumns = { @JoinColumn(name = "examination_id") })
+    private List<Examination> examinations = new ArrayList<>();
+
     private String date;
-    private VegetativeAnamnesisDecision type;
-    private List<Examinations> examinations;
+    private VegetativeAnamnesisDecisionValues type;
 }

@@ -1,16 +1,11 @@
 package thb.siprojektanamneseservice.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
-import thb.siprojektanamneseservice.model.constants.AllergyType;
-import thb.siprojektanamneseservice.model.constants.Gender;
-import thb.siprojektanamneseservice.model.constants.MaritalStatus;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -18,6 +13,8 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
+@EqualsAndHashCode
 @Entity
 public class Patient implements Serializable {
 
@@ -25,38 +22,47 @@ public class Patient implements Serializable {
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     private UUID id;
+
+    @NotNull(message = "Firstname cannot be null")
     private String firstName;
+
+    @NotNull(message = "lastName cannot be null")
     private String lastName;
+
     private String profession;
 
     @ManyToOne
     @JoinColumn(name = "address_id")
     private Address address;
+
     private String phoneNumber;
     private String email;
-    private Gender gender;
-    private MaritalStatus maritalStatus;
+    private String genderValues; //TODO type changed  --> string
+    private String maritalStatusValues;  //TODO type change --> now string
     private boolean children;
 
     private int height;
     private float weight;
 
-    private List<Diagnosis> diagnosisList = new ArrayList<>();
-    private List<AllergyType> allergiesList = new ArrayList<>();
-    private List<VegetativeAnamnesis> vegetativeAnamnesisList = new ArrayList<>();
-    private List<MedicationIntake> medicationIntakeList = new ArrayList<>();
-    private List<Disease> diseaseList = new ArrayList<>();
-    private List<FamilyAnamnesis> familyAnamnesisList = new ArrayList<>();
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "patient_allergy_type",
+            joinColumns = { @JoinColumn(name = "patient_id") },
+            inverseJoinColumns = { @JoinColumn(name = "allergy_type_id") })
+    private List<AllergyType> allergies = new ArrayList<>();
 
-    private static Patient INSTANCE;
+    @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
+    private List<Diagnosis> diagnosis = new ArrayList<>();
 
-    private Patient(UUID id){
-        this.setId(id);
-    }
-    public static Patient getInstance(UUID id){
-        if (INSTANCE == null){
-            INSTANCE = new Patient(id);
-        }
-        return INSTANCE;
-    }
+    @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
+    private List<VegetativeAnamnesis> vegetativeAnamnesis = new ArrayList<>();
+
+    @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
+    private List<MedicationInTake> medicationIntake = new ArrayList<>(); //TODO ?
+
+    @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
+    private List<Disease> disease = new ArrayList<>();
+
+    @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
+    private List<FamilyAnamnesis> familyAnamnesis = new ArrayList<>();
+
 }
