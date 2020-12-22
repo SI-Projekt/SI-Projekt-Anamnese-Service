@@ -4,11 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
-import thb.siprojektanamneseservice.model.constants.VegetativeAnamnesisDecision;
+import thb.siprojektanamneseservice.model.constants.VegetativeAnamnesisDecisionValues;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.UUID;
 
 
@@ -23,10 +21,14 @@ public class VegetativeAnamnesis {
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     private UUID id;
 
+    @ManyToOne
+    @JoinColumn(name = "patient_Id", nullable = false)
+    private Patient patient;
+
     private boolean insomnia;
     private boolean sleepDisorders;
-    private VegetativeAnamnesisDecision thirst;
-    private VegetativeAnamnesisDecision appetite;
-    private VegetativeAnamnesisDecision bowelMovement;
-    private VegetativeAnamnesisDecision urination;
+    private VegetativeAnamnesisDecisionValues thirst;
+    private VegetativeAnamnesisDecisionValues appetite;
+    private VegetativeAnamnesisDecisionValues bowelMovement;
+    private VegetativeAnamnesisDecisionValues urination;
 }

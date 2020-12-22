@@ -5,24 +5,27 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Date;
 import java.util.UUID;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
-public class Address {
+public class MedicationInTake {
 
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     private UUID id;
 
-    private String streetAndNumber;
-    private String postalCode;
-    private String country;
-    private String city;
+    @ManyToOne
+    @JoinColumn(name = "patient_Id", nullable = false)
+    private Patient patient;
+
+    private String designation;
+    private String dosage;
+    private Date startDate;
+    private boolean bloodDiluent;
 }

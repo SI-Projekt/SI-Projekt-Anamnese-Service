@@ -4,12 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
-import thb.siprojektanamneseservice.model.constants.PreExistingIllness;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import java.util.List;
+import javax.persistence.*;
 import java.util.UUID;
 
 @Data
@@ -23,6 +19,10 @@ public class FamilyAnamnesis {
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     private UUID id;
 
-    private List<PreExistingIllness> father;
-    private List<PreExistingIllness> mother;
+    @ManyToOne
+    @JoinColumn(name = "patient_Id", nullable = false)
+    private Patient patient;
+
+//    private PreExistingIllness father; //TODO
+//    private PreExistingIllness mother;
 }
