@@ -39,4 +39,8 @@ public class ApiConstants {
     //FamilyAnamnesis
     public static final String FAMILYANAMNESIS_ROOT = API + "/familyAnamnesis";
     public static final String FAMILYANAMNESIS_ITEM = FAMILYANAMNESIS_ROOT + "/{familyAnamnesisId}";
+
+    //Disease
+    public static final String DISEASE_ROOT = API + "/diseases";
+    public static final String DISEASE_ITEM = DISEASE_ROOT + "/{diseaseId}";
 }
