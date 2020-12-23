@@ -8,4 +8,6 @@ import java.util.UUID;
 
 public interface GenderRepository
         extends JpaRepository<Gender, UUID>, JpaSpecificationExecutor<Gender> {
+
+    int countById(UUID genderId);
 }
