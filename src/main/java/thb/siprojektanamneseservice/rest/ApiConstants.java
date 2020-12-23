@@ -51,4 +51,8 @@ public class ApiConstants {
     //Gender
     public static final String GENDER_ROOT = API + "/genders";
     public static final String GENDER_ITEM = GENDER_ROOT + "/{genderId}";
+
+    //Examination
+    public static final String EXAMINATION_ROOT = API + "/examinations";
+    public static final String EXAMINATION_ITEM = EXAMINATION_ROOT + "/{examinationId}";
 }
