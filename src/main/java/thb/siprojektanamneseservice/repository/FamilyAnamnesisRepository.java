@@ -8,4 +8,6 @@ import java.util.UUID;
 
 public interface FamilyAnamnesisRepository
         extends JpaRepository<FamilyAnamnesis, UUID>, JpaSpecificationExecutor<FamilyAnamnesis> {
+
+    int countById(UUID familyAnamnesisId);
 }
