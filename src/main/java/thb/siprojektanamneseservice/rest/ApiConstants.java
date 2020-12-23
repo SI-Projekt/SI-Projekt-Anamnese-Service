@@ -10,6 +10,7 @@ public class ApiConstants {
 
     //Address
 
+
     //Patient
     public static final String MARITAL_STATUS_ROOT = API + "/maritalStatuss";
     public static final String MARITAL_STATUS_ITEM = MARITAL_STATUS_ROOT + "/{maritalStatusId}";
@@ -25,4 +26,8 @@ public class ApiConstants {
     //AllergyType
     public static final String ALLERGY_TYPE_ROOT = API + "/allergyTypes";
     public static final String ALLERGY_TYPE_ITEM = ALLERGY_TYPE_ROOT + "/{allergyTypeId}";
+
+    //Diagnosis
+    public static final String DIAGNOSIS_ROOT = API + "/diagnosiss";
+    public static final String DIAGNOSIS_ITEM = DIAGNOSIS_ROOT + "/{diagnosisId}";
 }
