@@ -9,4 +9,5 @@ import java.util.UUID;
 public interface DiseaseRepository
         extends JpaRepository<Disease, UUID>, JpaSpecificationExecutor<Disease> {
 
+    int countById(UUID diseaseId);
 }
