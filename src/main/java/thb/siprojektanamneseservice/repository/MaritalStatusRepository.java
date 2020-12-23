@@ -8,4 +8,6 @@ import java.util.UUID;
 
 public interface MaritalStatusRepository
         extends JpaRepository<MaritalStatus, UUID>, JpaSpecificationExecutor<MaritalStatus> {
+
+    int countById(UUID maritalStatusId);
 }

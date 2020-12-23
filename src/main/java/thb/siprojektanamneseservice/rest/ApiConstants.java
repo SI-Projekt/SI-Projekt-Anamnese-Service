@@ -17,4 +17,8 @@ public class ApiConstants {
     //PreExistingIllnesses
     public static final String PRE_EXISTING_ILLNESS_ROOT = API + "/PreExistingIllnesses";
     public static final String PRE_EXISTING_ILLNESS_ITEM = PRE_EXISTING_ILLNESS_ROOT + "/{PreExistingIllnessId}";
+
+    //MaritalStatuss
+    public static final String MARITAL_STATUS_ROOT = API + "/maritalStatuss";
+    public static final String MARITAL_STATUS_ITEM = MARITAL_STATUS_ROOT + "/{maritalStatusId}";
 }
