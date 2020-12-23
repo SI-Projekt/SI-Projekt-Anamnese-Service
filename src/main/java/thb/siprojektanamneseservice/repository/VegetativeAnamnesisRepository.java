@@ -9,4 +9,6 @@ import java.util.UUID;
 public interface VegetativeAnamnesisRepository
         extends JpaRepository<VegetativeAnamnesis, UUID>, JpaSpecificationExecutor<VegetativeAnamnesis> {
 
+    int countById(UUID vegetativeAnamnesisId);
+
 }
