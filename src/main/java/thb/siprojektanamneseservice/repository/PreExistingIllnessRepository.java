@@ -8,4 +8,6 @@ import java.util.UUID;
 
 public interface PreExistingIllnessRepository
         extends JpaRepository<PreExistingIllness, UUID>, JpaSpecificationExecutor<PreExistingIllness> {
+
+    int countById(UUID preExistingIllnessId);
 }
