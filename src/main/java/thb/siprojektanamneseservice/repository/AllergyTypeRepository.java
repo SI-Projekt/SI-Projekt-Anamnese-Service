@@ -8,4 +8,6 @@ import java.util.UUID;
 
 public interface AllergyTypeRepository
         extends JpaRepository<AllergyType, UUID>, JpaSpecificationExecutor<AllergyType> {
+
+    int countById(UUID allergyTypeId);
 }
