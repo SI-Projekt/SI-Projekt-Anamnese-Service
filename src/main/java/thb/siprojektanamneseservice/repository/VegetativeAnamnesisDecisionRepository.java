@@ -8,4 +8,6 @@ import java.util.UUID;
 
 public interface VegetativeAnamnesisDecisionRepository
         extends JpaRepository<VegetativeAnamnesisDecision, UUID>, JpaSpecificationExecutor<VegetativeAnamnesisDecision> {
+
+    int countById(UUID vegetativeAnamnesisDecisionId);
 }
