@@ -8,6 +8,8 @@ import java.util.UUID;
 
 public interface MedicationInTakeRepository
         extends JpaRepository<MedicationInTake, UUID>, JpaSpecificationExecutor<MedicationInTake> {
+
+    int countById(UUID medicationInTakeId);
 }
 
 
