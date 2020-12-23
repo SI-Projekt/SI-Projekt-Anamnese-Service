@@ -8,7 +8,6 @@ import thb.siprojektanamneseservice.model.MaritalStatus;
 import thb.siprojektanamneseservice.rest.ApiConstants;
 import thb.siprojektanamneseservice.service.MaritalStatusService;
 
-import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -45,7 +44,7 @@ public class MaritalStatusItemController {
 
     @RequestMapping(method = RequestMethod.PUT)
     @Consumes(MediaType.APPLICATION_JSON)
-    public void update(@PathVariable("maritalStatusId") UUID maritalStatusId, @RequestBody @Valid MaritalStatus maritalStatus) {
+    public void update(@PathVariable("maritalStatusId") UUID maritalStatusId, @RequestBody MaritalStatus maritalStatus) {
         log.info("Update the maritalStatus [id={}]", maritalStatusId);
         maritalStatusService.update(maritalStatusId, maritalStatus);
         log.info("MaritalStatus with [id={}] updated", maritalStatusId);
