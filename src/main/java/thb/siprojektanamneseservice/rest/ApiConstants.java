@@ -8,7 +8,7 @@ public class ApiConstants {
     public static final String PATIENT_ROOT = API + "/patients";
     public static final String PATIENT_ITEM = PATIENT_ROOT + "/{patientId}";
 
-    //Patient
+    //MaritalStatus
     public static final String MARITAL_STATUS_ROOT = API + "/maritalStatuss";
     public static final String MARITAL_STATUS_ITEM = MARITAL_STATUS_ROOT + "/{maritalStatusId}";
 
@@ -32,4 +32,7 @@ public class ApiConstants {
     public static final String ADDRESS_ROOT = API + "/addresses";
     public static final String ADDRESS_ITEM = ADDRESS_ROOT + "/{addressId}";
 
+    //Vegetative anamnesis
+    public static final String VEGETATIVEANAMNESIS_ROOT = API + "/vegetativeAnamnesis";
+    public static final String VEGETATIVEANAMNESIS_ITEM = VEGETATIVEANAMNESIS_ROOT + "/{vegetativeAnamnesisId}";
 }
