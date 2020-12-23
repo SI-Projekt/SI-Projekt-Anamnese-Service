@@ -45,10 +45,10 @@ public class DiagnosisRootController {
     @RequestMapping(method = RequestMethod.GET)
     @Produces(MediaType.APPLICATION_JSON)
     public List<Diagnosis> listAll(){
-        log.info("List all diagnosis");
-        List<Diagnosis> diagnosiss = diagnosisService.listAll();
-        log.info("Diagnosis list fetched");
+        log.info("List all diagnoses");
+        List<Diagnosis> diagnoses = diagnosisService.listAll();
+        log.info("Diagnoses list fetched");
 
-        return diagnosiss;
+        return diagnoses;
     }
 }

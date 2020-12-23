@@ -28,6 +28,6 @@ public class ApiConstants {
     public static final String ALLERGY_TYPE_ITEM = ALLERGY_TYPE_ROOT + "/{allergyTypeId}";
 
     //Diagnosis
-    public static final String DIAGNOSIS_ROOT = API + "/diagnosiss";
+    public static final String DIAGNOSIS_ROOT = API + "/diagnoses";
     public static final String DIAGNOSIS_ITEM = DIAGNOSIS_ROOT + "/{diagnosisId}";
 }
