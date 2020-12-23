@@ -47,4 +47,8 @@ public class ApiConstants {
     //Vegetative Anamnesis Decision
     public static final String VEGETATIVE_ANAMNESIS_DECISION_ROOT = API + "/vegetativeAnamnesisDecisions";
     public static final String VEGETATIVE_ANAMNESIS_DECISION_ITEM = VEGETATIVE_ANAMNESIS_DECISION_ROOT + "/{vegetativeAnamnesisDecisionId}";
+
+    //Gender
+    public static final String GENDER_ROOT = API + "/genders";
+    public static final String GENDER_ITEM = GENDER_ROOT + "/{genderId}";
 }
