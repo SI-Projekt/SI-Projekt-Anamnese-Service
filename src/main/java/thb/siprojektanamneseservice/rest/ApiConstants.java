@@ -21,4 +21,8 @@ public class ApiConstants {
     //PreExistingIllnesses
     public static final String PRE_EXISTING_ILLNESS_ROOT = API + "/preExistingIllnesses";
     public static final String PRE_EXISTING_ILLNESS_ITEM = PRE_EXISTING_ILLNESS_ROOT + "/{preExistingIllnessId}";
+
+    //AllergyType
+    public static final String ALLERGY_TYPE_ROOT = API + "/allergyTypes";
+    public static final String ALLERGY_TYPE_ITEM = ALLERGY_TYPE_ROOT + "/{allergyTypeId}";
 }
