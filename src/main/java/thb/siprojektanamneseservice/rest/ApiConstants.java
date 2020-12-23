@@ -43,4 +43,8 @@ public class ApiConstants {
     //Disease
     public static final String DISEASE_ROOT = API + "/diseases";
     public static final String DISEASE_ITEM = DISEASE_ROOT + "/{diseaseId}";
+
+    //Vegetative Anamnesis Decision
+    public static final String VEGETATIVE_ANAMNESIS_DECISION_ROOT = API + "/vegetativeAnamnesisDecisions";
+    public static final String VEGETATIVE_ANAMNESIS_DECISION_ITEM = VEGETATIVE_ANAMNESIS_DECISION_ROOT + "/{vegetativeAnamnesisDecisionId}";
 }
