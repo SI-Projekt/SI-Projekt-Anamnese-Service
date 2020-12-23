@@ -10,15 +10,7 @@ public class ApiConstants {
 
     //Address
 
-    //MedicationInTake
-    public static final String MEDICATION_IN_TAKE_ROOT = API + "/medication_in_takes";
-    public static final String MEDICATION_IN_TAKE_ITEM = MEDICATION_IN_TAKE_ROOT + "/{medicationInTakeId}";
-
-    //PreExistingIllnesses
-    public static final String PRE_EXISTING_ILLNESS_ROOT = API + "/PreExistingIllnesses";
-    public static final String PRE_EXISTING_ILLNESS_ITEM = PRE_EXISTING_ILLNESS_ROOT + "/{PreExistingIllnessId}";
-
-    //MaritalStatuss
+    //Patient
     public static final String MARITAL_STATUS_ROOT = API + "/maritalStatuss";
     public static final String MARITAL_STATUS_ITEM = MARITAL_STATUS_ROOT + "/{maritalStatusId}";
 }
