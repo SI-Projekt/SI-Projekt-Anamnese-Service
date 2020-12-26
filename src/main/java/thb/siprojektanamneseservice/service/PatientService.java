@@ -66,7 +66,7 @@ public class PatientService {
     private void checkForUniqueness(Patient patient) {
         if (repository.countById(patient.getId()) > 0){
             throw new ResourceBadRequestException(
-                    String.format("A patient with the number %s already exist", patient.getId())
+                    String.format("A patient with the id %s already exist", patient.getId())
             );
         }
     }
