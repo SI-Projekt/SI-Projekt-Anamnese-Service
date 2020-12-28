@@ -47,7 +47,7 @@ public class MedicationInTakeItemController {
 
     @RequestMapping(method = RequestMethod.PUT)
     @Consumes(MediaType.APPLICATION_JSON)
-    public void update(@PathVariable("patientId") UUID medicationInTakeId, @RequestBody @Valid MedicationInTake medicationInTake) {
+    public void update(@PathVariable("personId") UUID medicationInTakeId, @RequestBody @Valid MedicationInTake medicationInTake) {
         log.info("Update the medicationInTake [id={}]", medicationInTakeId);
         medicationInTakeService.update(medicationInTakeId, medicationInTake);
         log.info("MedicationInTake with [id={}] updated", medicationInTakeId);

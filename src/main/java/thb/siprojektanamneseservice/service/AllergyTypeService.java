@@ -5,9 +5,7 @@ import org.springframework.stereotype.Service;
 import thb.siprojektanamneseservice.exceptions.ResourceBadRequestException;
 import thb.siprojektanamneseservice.exceptions.ResourceNotFoundException;
 import thb.siprojektanamneseservice.model.AllergyType;
-import thb.siprojektanamneseservice.model.Patient;
 import thb.siprojektanamneseservice.repository.AllergyTypeRepository;
-import thb.siprojektanamneseservice.repository.PatientRepository;
 
 import javax.transaction.Transactional;
 import java.util.List;

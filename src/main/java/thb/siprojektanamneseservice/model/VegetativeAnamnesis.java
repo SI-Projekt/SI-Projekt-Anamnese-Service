@@ -22,8 +22,8 @@ public class VegetativeAnamnesis {
     private UUID id;
 
     @ManyToOne
-    @JoinColumn(name = "patient_Id", nullable = false)
-    private Patient patient;
+    @JoinColumn(name = "person_id", nullable = false)
+    private Person person;
 
     private boolean insomnia;
     private boolean sleepDisorders;

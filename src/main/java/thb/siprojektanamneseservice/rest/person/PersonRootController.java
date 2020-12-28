@@ -1,4 +1,4 @@
-package thb.siprojektanamneseservice.rest.patient;
+package thb.siprojektanamneseservice.rest.person;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import thb.siprojektanamneseservice.model.Patient;
+import thb.siprojektanamneseservice.model.Person;
 import thb.siprojektanamneseservice.rest.ApiConstants;
-import thb.siprojektanamneseservice.service.PatientService;
+import thb.siprojektanamneseservice.service.PersonService;
 
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
@@ -19,37 +19,37 @@ import javax.ws.rs.core.MediaType;
 import java.util.List;
 
 @RestController
-@RequestMapping(ApiConstants.PATIENT_ROOT)
+@RequestMapping(ApiConstants.PERSON_ROOT)
 @Validated
-public class PatientRootController {
+public class PersonRootController {
 
-    private static final Logger log = LoggerFactory.getLogger(PatientRootController.class);
+    private static final Logger log = LoggerFactory.getLogger(PersonRootController.class);
 
-    private final PatientService patientService;
+    private final PersonService personService;
 
     @Autowired
-    public PatientRootController(PatientService patientService) {
-        this.patientService = patientService;
+    public PersonRootController(PersonService personService) {
+        this.personService = personService;
     }
 
     @RequestMapping(method = RequestMethod.POST)
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Patient create(@RequestBody @Valid Patient newPatient){
-        log.info("create a patient");
-        Patient created = patientService.create(newPatient);
-        log.info("Patient created");
+    public Person create(@RequestBody @Valid Person newPerson){
+        log.info("create a person");
+        Person created = personService.create(newPerson);
+        log.info("Person created");
 
         return created;
     }
 
     @RequestMapping(method = RequestMethod.GET)
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Patient> listAll(){
-        log.info("List all patients");
-        List<Patient> patients = patientService.listAll();
-        log.info("Patients list fetched");
+    public List<Person> listAll(){
+        log.info("List all persons");
+        List<Person> persons = personService.listAll();
+        log.info("Persons list fetched");
 
-        return patients;
+        return persons;
     }
 }

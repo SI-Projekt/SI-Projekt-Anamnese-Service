@@ -21,8 +21,8 @@ public class MedicationInTake {
     private UUID id;
 
     @ManyToOne
-    @JoinColumn(name = "patient_Id", nullable = false)
-    private Patient patient;
+    @JoinColumn(name = "person_id", nullable = false)
+    private Person person;
 
     private String designation;
     private String dosage;

@@ -7,12 +7,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import thb.siprojektanamneseservice.model.Patient;
 import thb.siprojektanamneseservice.model.PreExistingIllness;
 import thb.siprojektanamneseservice.rest.ApiConstants;
 import thb.siprojektanamneseservice.service.PreExistingIllnessService;
 
-import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;

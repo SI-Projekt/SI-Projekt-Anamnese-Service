@@ -4,9 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import thb.siprojektanamneseservice.exceptions.ResourceBadRequestException;
 import thb.siprojektanamneseservice.exceptions.ResourceNotFoundException;
-import thb.siprojektanamneseservice.model.Patient;
 import thb.siprojektanamneseservice.model.PreExistingIllness;
-import thb.siprojektanamneseservice.repository.PatientRepository;
 import thb.siprojektanamneseservice.repository.PreExistingIllnessRepository;
 
 import javax.transaction.Transactional;

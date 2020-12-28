@@ -4,9 +4,9 @@ public class ApiConstants {
 
     public static final String API = "/api";
 
-    //Patient
-    public static final String PATIENT_ROOT = API + "/patients";
-    public static final String PATIENT_ITEM = PATIENT_ROOT + "/{patientId}";
+    //Person
+    public static final String PERSON_ROOT = API + "/persons";
+    public static final String PERSON_ITEM = PERSON_ROOT + "/{personId}";
 
     //MaritalStatus
     public static final String MARITAL_STATUS_ROOT = API + "/maritalStatuss";

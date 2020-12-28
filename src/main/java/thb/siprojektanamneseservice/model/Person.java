@@ -16,7 +16,7 @@ import java.util.UUID;
 @ToString
 @EqualsAndHashCode
 @Entity
-public class Patient implements Serializable {
+public class Person implements Serializable {
 
     @Id
     @GeneratedValue(generator = "uuid2")
@@ -44,25 +44,28 @@ public class Patient implements Serializable {
     private int height;
     private float weight;
 
+    private String type;
+    private boolean recorded;
+
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "patient_allergy_type",
-            joinColumns = { @JoinColumn(name = "patient_id") },
+    @JoinTable(name = "person_allergy_type",
+            joinColumns = { @JoinColumn(name = "person_id") },
             inverseJoinColumns = { @JoinColumn(name = "allergy_type_id") })
     private List<AllergyType> allergies = new ArrayList<>();
 
-    @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "person", fetch = FetchType.LAZY)
     private List<Diagnosis> diagnosis = new ArrayList<>();
 
-    @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "person", fetch = FetchType.LAZY)
     private List<VegetativeAnamnesis> vegetativeAnamnesis = new ArrayList<>();
 
-    @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "person", fetch = FetchType.LAZY)
     private List<MedicationInTake> medicationIntake = new ArrayList<>(); //TODO ?
 
-    @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "person", fetch = FetchType.LAZY)
     private List<Disease> disease = new ArrayList<>();
 
-    @OneToMany(mappedBy = "patient", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "person", fetch = FetchType.LAZY)
     private List<FamilyAnamnesis> familyAnamnesis = new ArrayList<>();
 
 }

@@ -54,9 +54,9 @@ public class DiagnosisService {
 
 
     public Diagnosis update(UUID diagnosisId, Diagnosis update) throws ResourceNotFoundException {
-        Diagnosis patientFound = getOne(diagnosisId);
+        Diagnosis personFound = getOne(diagnosisId);
 
-        if (!patientFound.getId().equals(update.getId())){
+        if (!personFound.getId().equals(update.getId())){
             checkForUniqueness(update);
         }
         update.setId(diagnosisId);

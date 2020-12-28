@@ -48,8 +48,8 @@ public class DiagnosisItemController {
     @RequestMapping(method = RequestMethod.PUT)
     @Consumes(MediaType.APPLICATION_JSON)
     public void update(@PathVariable("diagnosisId") UUID diagnosisId, @RequestBody @Valid Diagnosis diagnosis) {
-        log.info("Update a patient [id={}]", diagnosisId);
+        log.info("Update a person [id={}]", diagnosisId);
         diagnosisService.update(diagnosisId, diagnosis);
-        log.info("Patient with [id={}] updated", diagnosisId);
+        log.info("Person with [id={}] updated", diagnosisId);
     }
 }
