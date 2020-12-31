@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import thb.siprojektanamneseservice.model.FamilyAnamnesis;
 import thb.siprojektanamneseservice.rest.ApiConstants;
 import thb.siprojektanamneseservice.service.FamilyAnamnesisService;
+import thb.siprojektanamneseservice.transfert.FamilyAnamnesisTO;
 
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
@@ -35,9 +36,9 @@ public class FamilyAnamnesisRootController {
     @RequestMapping(method = RequestMethod.POST)
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public FamilyAnamnesis create(@RequestBody @Valid FamilyAnamnesis newFamilyAnamnesis){
+    public FamilyAnamnesis create(@RequestBody @Valid FamilyAnamnesisTO newFamilyAnamnesisTO){
         log.info("create a family anamnesis");
-        FamilyAnamnesis created = familyAnamnesisService.create(newFamilyAnamnesis);
+        FamilyAnamnesis created = familyAnamnesisService.create(newFamilyAnamnesisTO);
         log.info("Family anamnesis created");
 
         return created;

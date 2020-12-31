@@ -5,7 +5,9 @@ import org.springframework.stereotype.Service;
 import thb.siprojektanamneseservice.exceptions.ResourceBadRequestException;
 import thb.siprojektanamneseservice.exceptions.ResourceNotFoundException;
 import thb.siprojektanamneseservice.model.Diagnosis;
+import thb.siprojektanamneseservice.model.Person;
 import thb.siprojektanamneseservice.repository.DiagnosisRepository;
+import thb.siprojektanamneseservice.transfert.DiagnosisTO;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -17,10 +19,12 @@ import java.util.UUID;
 public class DiagnosisService {
 
     private final DiagnosisRepository repository;
+    private final PersonService personService;
 
     @Autowired
-    public DiagnosisService(DiagnosisRepository repository){
+    public DiagnosisService(DiagnosisRepository repository, PersonService personService){
         this.repository = repository;
+        this.personService = personService;
     }
 
     public List<Diagnosis> listAll() {
@@ -43,20 +47,26 @@ public class DiagnosisService {
     }
 
     /**
-     * @param newDiagnosis
+     * @param diagnosisTO
      * @return The new created diagnosis
      */
-    public Diagnosis create(Diagnosis newDiagnosis) {
-        checkForUniqueness(newDiagnosis);
+    public Diagnosis create(DiagnosisTO diagnosisTO) {
+        Person personFound = personService.getOne(diagnosisTO.getPersonId());
+        Diagnosis newDiagnosis = new Diagnosis();
+
         newDiagnosis.setId(null);
+        newDiagnosis.setBodyRegions(diagnosisTO.getBodyRegions());
+        newDiagnosis.setExaminationDate(diagnosisTO.getExaminationDate());
+        newDiagnosis.setExaminationName(diagnosisTO.getExaminationName());
+        newDiagnosis.setPerson(personFound);
         return repository.save(newDiagnosis);
     }
 
 
     public Diagnosis update(UUID diagnosisId, Diagnosis update) throws ResourceNotFoundException {
-        Diagnosis patientFound = getOne(diagnosisId);
+        Diagnosis personFound = getOne(diagnosisId);
 
-        if (!patientFound.getId().equals(update.getId())){
+        if (!personFound.getId().equals(update.getId())){
             checkForUniqueness(update);
         }
         update.setId(diagnosisId);

@@ -5,7 +5,11 @@ import org.springframework.stereotype.Service;
 import thb.siprojektanamneseservice.exceptions.ResourceBadRequestException;
 import thb.siprojektanamneseservice.exceptions.ResourceNotFoundException;
 import thb.siprojektanamneseservice.model.FamilyAnamnesis;
+import thb.siprojektanamneseservice.model.Illness;
+import thb.siprojektanamneseservice.model.Person;
 import thb.siprojektanamneseservice.repository.FamilyAnamnesisRepository;
+import thb.siprojektanamneseservice.repository.IllnessRepository;
+import thb.siprojektanamneseservice.transfert.FamilyAnamnesisTO;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -17,10 +21,14 @@ import java.util.UUID;
 public class FamilyAnamnesisService {
 
     private final FamilyAnamnesisRepository repository;
+    private final IllnessRepository illnessRepository;
+    private final PersonService personService;
 
     @Autowired
-    public FamilyAnamnesisService(FamilyAnamnesisRepository repository){
+    public FamilyAnamnesisService(FamilyAnamnesisRepository repository, IllnessRepository illnessRepository, PersonService personService){
         this.repository = repository;
+        this.illnessRepository = illnessRepository;
+        this.personService = personService;
     }
 
     public List<FamilyAnamnesis> listAll() {
@@ -46,9 +54,33 @@ public class FamilyAnamnesisService {
      * @param newFamilyAnamnesis
      * @return The new created familyAnamnesis
      */
-    public FamilyAnamnesis create(FamilyAnamnesis newFamilyAnamnesis) {
-        checkForUniqueness(newFamilyAnamnesis);
+    public FamilyAnamnesis create(FamilyAnamnesisTO familyAnamnesisTO) {
+        Person personFound = personService.getOne(familyAnamnesisTO.getPatientId());
+        FamilyAnamnesis newFamilyAnamnesis  = new FamilyAnamnesis();
+
+        if (!familyAnamnesisTO.getFather().isEmpty()){
+            familyAnamnesisTO.getFather().forEach(illness -> {
+                Illness illnessFound = illnessRepository.findByName(illness.getName());
+                if (illnessFound == null){
+                    illnessFound = illnessRepository.saveAndFlush(illness);
+                }
+                newFamilyAnamnesis.getFather().add(illnessFound);
+            });
+        }
+
+        if (!familyAnamnesisTO.getMother().isEmpty()){
+            familyAnamnesisTO.getMother().forEach(illness -> {
+                Illness illnessFound = illnessRepository.findByName(illness.getName());
+                if (illnessFound == null){
+                    illnessFound = illnessRepository.saveAndFlush(illness);
+                }
+                newFamilyAnamnesis.getMother().add(illnessFound);
+            });
+        }
+
         newFamilyAnamnesis.setId(null);
+        newFamilyAnamnesis.setPerson(personFound);
+
         return repository.save(newFamilyAnamnesis);
     }
 

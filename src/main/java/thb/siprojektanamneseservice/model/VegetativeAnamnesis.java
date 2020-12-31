@@ -1,34 +1,43 @@
 package thb.siprojektanamneseservice.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
-import thb.siprojektanamneseservice.model.constants.VegetativeAnamnesisDecisionValues;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.util.Date;
 import java.util.UUID;
 
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
 @Entity
-public class VegetativeAnamnesis {
+public class VegetativeAnamnesis implements Serializable {
 
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     private UUID id;
 
-    @ManyToOne
-    @JoinColumn(name = "patient_Id", nullable = false)
-    private Patient patient;
+    @NotNull(message = "The date muss not be null")
+    @NotEmpty(message = "The date muss not be empty")
+    private Date date;
+
+    @JoinColumn(name = "person_Id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Person person;
 
     private boolean insomnia;
     private boolean sleepDisorders;
-    private VegetativeAnamnesisDecisionValues thirst;
-    private VegetativeAnamnesisDecisionValues appetite;
-    private VegetativeAnamnesisDecisionValues bowelMovement;
-    private VegetativeAnamnesisDecisionValues urination;
+
+    //VegetativeAnamnesisDecisionValues
+    private String thirst;
+    private String appetite;
+    private String bowelMovement;
+    private String urination;
 }

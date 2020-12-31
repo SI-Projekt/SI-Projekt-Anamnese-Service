@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import thb.siprojektanamneseservice.model.MedicationInTake;
 import thb.siprojektanamneseservice.rest.ApiConstants;
 import thb.siprojektanamneseservice.service.MedicationInTakeService;
+import thb.siprojektanamneseservice.transfert.MedicationInTakeTO;
 
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
@@ -34,9 +35,9 @@ public class MedicationInTakeRootController {
     @RequestMapping(method = RequestMethod.POST)
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public MedicationInTake create(@RequestBody @Valid MedicationInTake newMedicationInTake){
+    public MedicationInTake create(@RequestBody @Valid MedicationInTakeTO newMedicationInTakeTO){
         log.info("create a medicationInTake");
-        MedicationInTake created = medicationInTakeService.create(newMedicationInTake);
+        MedicationInTake created = medicationInTakeService.create(newMedicationInTakeTO);
         log.info("MedicationInTake created");
 
         return created;
