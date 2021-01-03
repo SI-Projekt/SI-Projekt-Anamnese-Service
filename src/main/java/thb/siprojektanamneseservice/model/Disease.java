@@ -27,7 +27,7 @@ public class Disease {
     private Person person;
 
     private boolean undergoneSurgery;
-    private String surgeriesDetails;  //TODO Class diagram need to be modified
+    private String surgeriesDetails;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "disease_preExistingIllnesses",

@@ -51,7 +51,7 @@ public class FamilyAnamnesisService {
     }
 
     /**
-     * @param newFamilyAnamnesis
+     * @param familyAnamnesisTO to be created
      * @return The new created familyAnamnesis
      */
     public FamilyAnamnesis create(FamilyAnamnesisTO familyAnamnesisTO) {

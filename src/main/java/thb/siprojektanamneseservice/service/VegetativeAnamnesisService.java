@@ -47,7 +47,7 @@ public class VegetativeAnamnesisService {
     }
 
     /**
-     * @param newVegetativeAnamnesis
+     * @param newVegetativeAnamnesisTO to be created
      * @return The new created vegetativeAnamnesis
      */
     public VegetativeAnamnesis create(VegetativeAnamnesisTO newVegetativeAnamnesisTO) {

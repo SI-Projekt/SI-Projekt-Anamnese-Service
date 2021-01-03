@@ -5,9 +5,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
-import java.util.List;
 import java.util.UUID;
 
 
@@ -24,12 +25,4 @@ public class Allergy {
 
     @NotEmpty(message = "The allergy name must not be null")
     private String name;
-
-/*    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "allergy_person",
-            joinColumns = @JoinColumn(name = "allergy_Id"),
-            inverseJoinColumns = @JoinColumn(name = "people_id")
-    )
-    private List<Person> people; //TODO many2many relation with it - look at the other one in person*/
-
 }

@@ -30,7 +30,7 @@ public class FamilyAnamnesis {
             joinColumns = @JoinColumn(name = "familyAnamnesis_Id"),
             inverseJoinColumns = @JoinColumn(name = "father_id")
     )
-    private List<Illness> father = new ArrayList<>(); //TODO
+    private List<Illness> father = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "familyAnamnesis_mother",

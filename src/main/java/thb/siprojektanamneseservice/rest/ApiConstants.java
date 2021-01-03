@@ -8,10 +8,6 @@ public class ApiConstants {
     public static final String PATIENT_ROOT = API + "/persons";
     public static final String PATIENT_ITEM = PATIENT_ROOT + "/{personId}";
 
-    //MaritalStatus
-    public static final String MARITAL_STATUS_ROOT = API + "/maritalStatuss";
-    public static final String MARITAL_STATUS_ITEM = MARITAL_STATUS_ROOT + "/{maritalStatusId}";
-
     //MedicationInTake
     public static final String MEDICATION_IN_TAKE_ROOT = API + "/medication_in_takes";
     public static final String MEDICATION_IN_TAKE_ITEM = MEDICATION_IN_TAKE_ROOT + "/{medicationInTakeId}";

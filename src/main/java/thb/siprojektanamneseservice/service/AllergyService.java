@@ -43,7 +43,7 @@ public class AllergyService {
     }
 
     /**
-     * @param newAllergy
+     * @param newAllergy to be created
      * @return The new created allergyType
      */
     public Allergy create(Allergy newAllergy) {

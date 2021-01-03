@@ -26,7 +26,6 @@ public class DiagnosisRootController {
 
     private static final Logger log = LoggerFactory.getLogger(DiagnosisRootController.class);
 
-    @Autowired
     private final DiagnosisService diagnosisService;
 
     @Autowired

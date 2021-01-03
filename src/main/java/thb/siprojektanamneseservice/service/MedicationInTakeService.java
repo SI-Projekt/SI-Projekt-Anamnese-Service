@@ -47,7 +47,7 @@ public class MedicationInTakeService {
     }
 
     /**
-     * @param newMedicationInTake
+     * @param newMedicationInTakeTO to be created
      * @return The new created medicationInTake
      */
     public MedicationInTake create(MedicationInTakeTO newMedicationInTakeTO) {

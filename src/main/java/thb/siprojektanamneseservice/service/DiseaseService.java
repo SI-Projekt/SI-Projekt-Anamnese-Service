@@ -48,7 +48,7 @@ public class DiseaseService {
     }
 
     /**
-     * @param newDiseaseTO
+     * @param newDiseaseTO to be created
      * @return The new created disease
      */
     public Disease create(DiseaseTO newDiseaseTO) {

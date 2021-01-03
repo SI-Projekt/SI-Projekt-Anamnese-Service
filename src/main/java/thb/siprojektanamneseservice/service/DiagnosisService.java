@@ -47,7 +47,7 @@ public class DiagnosisService {
     }
 
     /**
-     * @param diagnosisTO
+     * @param diagnosisTO to be created
      * @return The new created diagnosis
      */
     public Diagnosis create(DiagnosisTO diagnosisTO) {

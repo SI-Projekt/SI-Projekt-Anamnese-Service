@@ -4,9 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import thb.siprojektanamneseservice.exceptions.ResourceBadRequestException;
 import thb.siprojektanamneseservice.exceptions.ResourceNotFoundException;
-import thb.siprojektanamneseservice.model.Address;
 import thb.siprojektanamneseservice.model.Security;
-import thb.siprojektanamneseservice.repository.AddressRepository;
 import thb.siprojektanamneseservice.repository.SecurityRepository;
 
 import javax.transaction.Transactional;
@@ -45,7 +43,7 @@ public class SecurityService {
     }
 
     /**
-     * @param newSecurity
+     * @param newSecurity need to remember password
      * @return The new created security
      */
     public Security create(Security newSecurity) {

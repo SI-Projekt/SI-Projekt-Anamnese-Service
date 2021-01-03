@@ -19,7 +19,6 @@ import java.util.UUID;
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Person implements Serializable {
-    // TODO Person must not have other attribute because he is also a Person: Change person to Person
 
     @Id
     @GeneratedValue(generator = "uuid2")

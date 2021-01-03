@@ -43,7 +43,7 @@ public class IllnessService {
     }
 
     /**
-     * @param newIllness
+     * @param newIllness to be created
      * @return The new created preExistingIllness
      */
     public Illness create(Illness newIllness) {
