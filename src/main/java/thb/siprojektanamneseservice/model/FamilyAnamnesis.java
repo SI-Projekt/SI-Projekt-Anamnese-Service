@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -23,6 +24,7 @@ public class FamilyAnamnesis {
     private UUID id;
 
     @OneToOne(fetch = FetchType.LAZY)
+    @NotNull(message = "The person must not be null")
     private Person person;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -38,13 +40,4 @@ public class FamilyAnamnesis {
             inverseJoinColumns = @JoinColumn(name = "mother_id")
     )
     private List<Illness> mother = new ArrayList<>();
-
- /*   public void addPreExistingIllness(PreExistingIllness preExistingIllness){
-        fatherAndMother.add(preExistingIllness);
-        preExistingIllness.setFamilyAnamnesis(this);
-    }
-    public void removePreExistingIllness(PreExistingIllness preExistingIllness){
-        fatherAndMother.remove(preExistingIllness);
-        preExistingIllness.setFamilyAnamnesis(null);
-    }*/
 }

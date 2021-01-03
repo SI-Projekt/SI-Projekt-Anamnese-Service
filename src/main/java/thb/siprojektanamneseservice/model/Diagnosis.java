@@ -24,7 +24,7 @@ public class Diagnosis implements Serializable {
 
     private String examinationName;
     private Date examinationDate;
-    private String bodyRegions;
+    private String bodyRegion;
 
 
     @JoinColumn(name = "person_Id")

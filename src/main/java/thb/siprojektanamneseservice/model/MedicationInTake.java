@@ -5,6 +5,7 @@ import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -26,6 +27,7 @@ public class MedicationInTake implements Serializable {
 
     @JoinColumn(name = "person_Id")
     @ManyToOne(fetch = FetchType.LAZY)
+    @NotNull(message = "The person must not be null")
     private Person person;
 
     @NotNull(message = "The designation muss not be null")

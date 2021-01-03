@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -14,8 +15,10 @@ import java.util.UUID;
 @AllArgsConstructor
 public class PersonTO {
 
+    @NotNull(message = "Firstname cannot be null")
     private String firstName;
 
+    @NotNull(message = "lastName cannot be null")
     private String lastName;
 
     private String profession;
@@ -38,10 +41,12 @@ public class PersonTO {
     private String password;
     private boolean recorded;
 
-    @NotEmpty(message = "The secret question must not be null")
+    @NotEmpty(message = "The secret question must not be empty")
+    @NotNull(message = "The secret question cannot be null")
     private String secretQuestion;
 
-    @NotEmpty(message = "The answer must not be null")
+    @NotEmpty(message = "The answer must not be empty")
+    @NotNull(message = "The answer cannot be null")
     private String answer;
 
     @NotEmpty(message = "The allergy name must not be null")

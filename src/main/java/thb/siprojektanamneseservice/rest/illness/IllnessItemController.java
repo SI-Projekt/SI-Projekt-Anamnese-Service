@@ -3,11 +3,13 @@ package thb.siprojektanamneseservice.rest.illness;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import thb.siprojektanamneseservice.model.Illness;
 import thb.siprojektanamneseservice.rest.ApiConstants;
 import thb.siprojektanamneseservice.service.IllnessService;
 
+import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -15,6 +17,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping(ApiConstants.PRE_EXISTING_ILLNESS_ITEM)
+@Validated
 public class IllnessItemController {
 
     private static final Logger log = LoggerFactory.getLogger(IllnessItemController.class);
@@ -44,7 +47,7 @@ public class IllnessItemController {
 
     @RequestMapping(method = RequestMethod.PUT)
     @Consumes(MediaType.APPLICATION_JSON)
-    public void update(@PathVariable("preExistingIllnessId") UUID preExistingIllnessId, @RequestBody Illness illness) {
+    public void update(@PathVariable("preExistingIllnessId") UUID preExistingIllnessId, @RequestBody @Valid Illness illness) {
         log.info("Update the preExistingIllness [id={}]", preExistingIllnessId);
         illnessService.update(preExistingIllnessId, illness);
         log.info("PreExistingIllness with [id={}] updated", preExistingIllnessId);
