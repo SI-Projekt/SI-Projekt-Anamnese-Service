@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import thb.siprojektanamneseservice.model.Diagnosis;
 import thb.siprojektanamneseservice.rest.ApiConstants;
 import thb.siprojektanamneseservice.service.DiagnosisService;
+import thb.siprojektanamneseservice.transfert.DiagnosisTO;
 
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
@@ -24,6 +25,7 @@ import java.util.List;
 public class DiagnosisRootController {
 
     private static final Logger log = LoggerFactory.getLogger(DiagnosisRootController.class);
+
     private final DiagnosisService diagnosisService;
 
     @Autowired
@@ -34,9 +36,9 @@ public class DiagnosisRootController {
     @RequestMapping(method = RequestMethod.POST)
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Diagnosis create(@RequestBody @Valid Diagnosis newDiagnosis){
+    public Diagnosis create(@RequestBody @Valid DiagnosisTO newDiagnosisTO){
         log.info("create a diagnosis");
-        Diagnosis created = diagnosisService.create(newDiagnosis);
+        Diagnosis created = diagnosisService.create(newDiagnosisTO);
         log.info("Diagnosis created");
 
         return created;

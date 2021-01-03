@@ -5,7 +5,11 @@ import org.springframework.stereotype.Service;
 import thb.siprojektanamneseservice.exceptions.ResourceBadRequestException;
 import thb.siprojektanamneseservice.exceptions.ResourceNotFoundException;
 import thb.siprojektanamneseservice.model.Disease;
+import thb.siprojektanamneseservice.model.Illness;
+import thb.siprojektanamneseservice.model.Person;
 import thb.siprojektanamneseservice.repository.DiseaseRepository;
+import thb.siprojektanamneseservice.repository.IllnessRepository;
+import thb.siprojektanamneseservice.transfert.DiseaseTO;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -17,9 +21,14 @@ import java.util.UUID;
 public class DiseaseService {
 
     private final DiseaseRepository repository;
+    private final IllnessRepository illnessRepository;
+    private final PersonService personService;
 
     @Autowired
-    public DiseaseService(DiseaseRepository repository){ this.repository = repository; }
+    public DiseaseService(DiseaseRepository repository, IllnessRepository illnessRepository, PersonService personService){ this.repository = repository;
+        this.illnessRepository = illnessRepository;
+        this.personService = personService;
+    }
 
     public List<Disease> listAll() { return  repository.findAll(); }
 
@@ -39,12 +48,29 @@ public class DiseaseService {
     }
 
     /**
-     * @param newDisease
+     * @param newDiseaseTO to be created
      * @return The new created disease
      */
-    public Disease create(Disease newDisease) {
-        checkForUniqueness(newDisease);
+    public Disease create(DiseaseTO newDiseaseTO) {
+
+        Person personFound = personService.getOne(newDiseaseTO.getPatientId());
+        Disease newDisease  = new Disease();
+
+        if (!newDiseaseTO.getPreExistingIllnesses().isEmpty()){
+            newDiseaseTO.getPreExistingIllnesses().forEach(illness -> {
+                Illness illnessFound = illnessRepository.findByName(illness.getName());
+                if (illnessFound == null){
+                    illnessFound = illnessRepository.saveAndFlush(illness);
+                }
+                newDisease.getPreExistingIllnesses().add(illnessFound);
+            });
+        }
+
         newDisease.setId(null);
+        newDisease.setPerson(personFound);
+        newDisease.setSurgeriesDetails(newDiseaseTO.getSurgeriesDetails());
+        newDisease.setUndergoneSurgery(newDiseaseTO.isUndergoneSurgery());
+
         return repository.save(newDisease);
     }
 

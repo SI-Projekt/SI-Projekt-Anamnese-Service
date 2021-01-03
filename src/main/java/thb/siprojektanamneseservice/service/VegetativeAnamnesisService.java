@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import thb.siprojektanamneseservice.exceptions.ResourceBadRequestException;
 import thb.siprojektanamneseservice.exceptions.ResourceNotFoundException;
+import thb.siprojektanamneseservice.model.Person;
 import thb.siprojektanamneseservice.model.VegetativeAnamnesis;
 import thb.siprojektanamneseservice.repository.VegetativeAnamnesisRepository;
+import thb.siprojektanamneseservice.transfert.VegetativeAnamnesisTO;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -17,10 +19,12 @@ import java.util.UUID;
 public class VegetativeAnamnesisService {
 
     private final VegetativeAnamnesisRepository repository;
+    private final PersonService personService;
 
     @Autowired
-    public VegetativeAnamnesisService(VegetativeAnamnesisRepository repository){
+    public VegetativeAnamnesisService(VegetativeAnamnesisRepository repository, PersonService personService){
         this.repository = repository;
+        this.personService = personService;
     }
 
     public List<VegetativeAnamnesis> listAll() {
@@ -43,13 +47,25 @@ public class VegetativeAnamnesisService {
     }
 
     /**
-     * @param newVegetativeAnamnesis
+     * @param newVegetativeAnamnesisTO to be created
      * @return The new created vegetativeAnamnesis
      */
-    public VegetativeAnamnesis create(VegetativeAnamnesis newVegetativeAnamnesis) {
-        checkForUniqueness(newVegetativeAnamnesis);
-        newVegetativeAnamnesis.setId(null);
-        return repository.save(newVegetativeAnamnesis);
+    public VegetativeAnamnesis create(VegetativeAnamnesisTO newVegetativeAnamnesisTO) {
+
+        Person personFound = personService.getOne(newVegetativeAnamnesisTO.getPatientId());
+        VegetativeAnamnesis create = new VegetativeAnamnesis();
+
+        create.setId(null);
+        create.setDate(newVegetativeAnamnesisTO.getDate());
+        create.setInsomnia(newVegetativeAnamnesisTO.isInsomnia());
+        create.setSleepDisorders(newVegetativeAnamnesisTO.isSleepDisorders());
+        create.setThirst(newVegetativeAnamnesisTO.getThirst());
+        create.setAppetite(newVegetativeAnamnesisTO.getAppetite());
+        create.setBowelMovement(newVegetativeAnamnesisTO.getBowelMovement());
+        create.setUrination(newVegetativeAnamnesisTO.getUrination());
+        create.setPerson(personFound);
+
+        return repository.save(create);
     }
 
 

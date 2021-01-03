@@ -43,7 +43,7 @@ public class AddressService {
     }
 
     /**
-     * @param newAddress
+     * @param newAddress to be created
      * @return The new created address
      */
     public Address create(Address newAddress) {

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import thb.siprojektanamneseservice.model.VegetativeAnamnesis;
 import thb.siprojektanamneseservice.rest.ApiConstants;
 import thb.siprojektanamneseservice.service.VegetativeAnamnesisService;
+import thb.siprojektanamneseservice.transfert.VegetativeAnamnesisTO;
 
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
@@ -35,9 +36,9 @@ public class VegetativeAnamnesisRootController {
     @RequestMapping(method = RequestMethod.POST)
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public VegetativeAnamnesis create(@RequestBody @Valid VegetativeAnamnesis newVegetativeAnamnesis){
+    public VegetativeAnamnesis create(@RequestBody @Valid VegetativeAnamnesisTO newVegetativeAnamnesisTO){
         log.info("create a vegetative anamnesis");
-        VegetativeAnamnesis created = vegetativeAnamnesisService.create(newVegetativeAnamnesis);
+        VegetativeAnamnesis created = vegetativeAnamnesisService.create(newVegetativeAnamnesisTO);
         log.info("Vegetative anamnesis created");
 
         return created;

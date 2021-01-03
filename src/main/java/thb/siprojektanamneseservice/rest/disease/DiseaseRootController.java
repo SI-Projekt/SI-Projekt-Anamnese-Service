@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import thb.siprojektanamneseservice.model.Disease;
 import thb.siprojektanamneseservice.rest.ApiConstants;
 import thb.siprojektanamneseservice.service.DiseaseService;
+import thb.siprojektanamneseservice.transfert.DiseaseTO;
 
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
@@ -35,9 +36,9 @@ public class DiseaseRootController {
     @RequestMapping(method = RequestMethod.POST)
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Disease create(@RequestBody @Valid Disease newDisease){
+    public Disease create(@RequestBody @Valid DiseaseTO newDiseaseTO){
         log.info("create a disease");
-        Disease created = diseaseService.create(newDisease);
+        Disease created = diseaseService.create(newDiseaseTO);
         log.info("Disease created");
 
         return created;

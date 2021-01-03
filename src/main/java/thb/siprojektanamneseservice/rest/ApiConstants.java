@@ -4,13 +4,9 @@ public class ApiConstants {
 
     public static final String API = "/api";
 
-    //Patient
-    public static final String PATIENT_ROOT = API + "/patients";
-    public static final String PATIENT_ITEM = PATIENT_ROOT + "/{patientId}";
-
-    //MaritalStatus
-    public static final String MARITAL_STATUS_ROOT = API + "/maritalStatuss";
-    public static final String MARITAL_STATUS_ITEM = MARITAL_STATUS_ROOT + "/{maritalStatusId}";
+    //Person
+    public static final String PATIENT_ROOT = API + "/persons";
+    public static final String PATIENT_ITEM = PATIENT_ROOT + "/{personId}";
 
     //MedicationInTake
     public static final String MEDICATION_IN_TAKE_ROOT = API + "/medication_in_takes";
@@ -44,15 +40,7 @@ public class ApiConstants {
     public static final String DISEASE_ROOT = API + "/diseases";
     public static final String DISEASE_ITEM = DISEASE_ROOT + "/{diseaseId}";
 
-    //Vegetative Anamnesis Decision
-    public static final String VEGETATIVE_ANAMNESIS_DECISION_ROOT = API + "/vegetativeAnamnesisDecisions";
-    public static final String VEGETATIVE_ANAMNESIS_DECISION_ITEM = VEGETATIVE_ANAMNESIS_DECISION_ROOT + "/{vegetativeAnamnesisDecisionId}";
-
-    //Gender
-    public static final String GENDER_ROOT = API + "/genders";
-    public static final String GENDER_ITEM = GENDER_ROOT + "/{genderId}";
-
-    //Examination
-    public static final String EXAMINATION_ROOT = API + "/examinations";
-    public static final String EXAMINATION_ITEM = EXAMINATION_ROOT + "/{examinationId}";
+    //Security
+    public static final String SECURITY_ROOT = API + "/securities";
+    public static final String SECURITY_ITEM = SECURITY_ROOT + "/{securityId}";
 }

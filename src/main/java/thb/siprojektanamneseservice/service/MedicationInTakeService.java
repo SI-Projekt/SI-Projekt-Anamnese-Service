@@ -5,7 +5,9 @@ import org.springframework.stereotype.Service;
 import thb.siprojektanamneseservice.exceptions.ResourceBadRequestException;
 import thb.siprojektanamneseservice.exceptions.ResourceNotFoundException;
 import thb.siprojektanamneseservice.model.MedicationInTake;
+import thb.siprojektanamneseservice.model.Person;
 import thb.siprojektanamneseservice.repository.MedicationInTakeRepository;
+import thb.siprojektanamneseservice.transfert.MedicationInTakeTO;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -17,10 +19,12 @@ import java.util.UUID;
 public class MedicationInTakeService {
 
     private final MedicationInTakeRepository repository;
+    private final PersonService personService;
 
     @Autowired
-    public MedicationInTakeService(MedicationInTakeRepository repository){
+    public MedicationInTakeService(MedicationInTakeRepository repository, PersonService personService){
         this.repository = repository;
+        this.personService = personService;
     }
 
     public List<MedicationInTake> listAll() {
@@ -43,13 +47,21 @@ public class MedicationInTakeService {
     }
 
     /**
-     * @param newMedicationInTake
+     * @param newMedicationInTakeTO to be created
      * @return The new created medicationInTake
      */
-    public MedicationInTake create(MedicationInTake newMedicationInTake) {
-        checkForUniqueness(newMedicationInTake);
-        newMedicationInTake.setId(null);
-        return repository.save(newMedicationInTake);
+    public MedicationInTake create(MedicationInTakeTO newMedicationInTakeTO) {
+
+        Person personFound = personService.getOne(newMedicationInTakeTO.getPatientId());
+        MedicationInTake create = new MedicationInTake();
+
+        create.setId(null);
+        create.setStartDate(newMedicationInTakeTO.getStartDate());
+        create.setDesignation(newMedicationInTakeTO.getDesignation());
+        create.setDosage(newMedicationInTakeTO.getDosage());
+        create.setBloodDiluent(newMedicationInTakeTO.isBloodDiluent());
+        create.setPerson(personFound);
+        return repository.save(create);
     }
 
 
