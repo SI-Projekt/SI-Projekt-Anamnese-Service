@@ -28,13 +28,13 @@ public class AllergyService {
     }
 
     public Allergy getOne(UUID allergyTypeId) throws ResourceNotFoundException {
-        Optional<Allergy> allergyTypeOP = repository.findById(allergyTypeId);
-        if (!allergyTypeOP.isPresent()) {
+        Optional<Allergy> allergyOP = repository.findById(allergyTypeId);
+        if (!allergyOP.isPresent()) {
             throw new ResourceNotFoundException(
                     String.format("The allergyType with the id %s does not exist", allergyTypeId.toString())
             );
         }
-        return allergyTypeOP.get();
+        return allergyOP.get();
     }
 
     public void delete(UUID allergyType) {
