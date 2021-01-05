@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ public class PersonTO {
     private String city;
 
     private String phoneNumber;
+    @Email(message = "email should be a valid email")
     private String email;
     private String gender;
     private String maritalStatus;
@@ -49,7 +51,7 @@ public class PersonTO {
     @NotNull(message = "The answer cannot be null")
     private String answer;
 
-    @NotEmpty(message = "The allergy name must not be null")
+//    @NotEmpty(message = "The allergy name must not be null")
     private List<String> allergyNames = new ArrayList<>();
 
     private List<UUID> medicationIds = new ArrayList<>();

@@ -5,6 +5,7 @@ import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -38,6 +39,7 @@ public class Person implements Serializable {
     private Address address;
 
     private String phoneNumber;
+    @Email(message = "email should be a valid email")
     private String email;
     private String gender;
     private String maritalStatus;
