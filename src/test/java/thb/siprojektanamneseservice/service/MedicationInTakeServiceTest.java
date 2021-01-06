@@ -5,9 +5,10 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import thb.siprojektanamneseservice.model.MedicationInTake;
+import thb.siprojektanamneseservice.model.*;
 import thb.siprojektanamneseservice.repository.MedicationInTakeRepository;
 import thb.siprojektanamneseservice.transfert.MedicationInTakeTO;
+import thb.siprojektanamneseservice.transfert.PersonTO;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -22,20 +23,18 @@ class MedicationInTakeServiceTest {
 
     @Mock
     MedicationInTakeRepository repository;
-
+    @Mock
+    PersonService personService;
     @InjectMocks
     MedicationInTakeService serviceUnderTest;
 
     MedicationInTake medicationInTake1;
     MedicationInTake medicationInTake2;
     MedicationInTakeTO medicationInTakeTO;
-    List<MedicationInTake> medicationInTakes;
 
     @BeforeEach
     void setUpTest() {
         MockitoAnnotations.openMocks(this);
-
-        medicationInTakes = new ArrayList<>();
 
         medicationInTake1 = new MedicationInTake();
         medicationInTake2 = new MedicationInTake();
@@ -60,6 +59,7 @@ class MedicationInTakeServiceTest {
 
     @Test
     void listAllTest() {
+        List<MedicationInTake> medicationInTakes = new ArrayList<>();
         medicationInTakes.add(medicationInTake1);
         medicationInTakes.add(medicationInTake2);
 
@@ -85,7 +85,7 @@ class MedicationInTakeServiceTest {
     }
 
     @Test
-    void createMedicationAndGetDosageTest() {
+    void createMedicationAndGetDosageAndDesignationAnDateTest() {
 
         when(repository.save(medicationInTake2)).thenReturn(medicationInTake2);
 
