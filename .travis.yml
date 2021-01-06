@@ -1,12 +1,15 @@
 language: java
 sudo: false
 jdk:
-- openjdk8
+  - openjdk8
+git:
+  clone: false
+  symlinks: true
 cache:
-directories:
-  - $HOME/.m2
+  directories:
+    - $HOME/.m2
 maven_build:
-stage: build
-script:
+  stage: build
+  script:
   #- "mvn clean package -Djava.awt.headless=true"
-  - "mvn clean verify"
+    - "mvn clean verify"
