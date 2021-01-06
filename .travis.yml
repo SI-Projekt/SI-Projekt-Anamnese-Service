@@ -2,9 +2,6 @@ language: java
 sudo: false
 jdk:
 - openjdk8
-git:
-  clone: false
-  symlinks: true
 cache:
 directories:
   - $HOME/.m2
