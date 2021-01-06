@@ -31,7 +31,6 @@ class FamilyAnamnesisServiceTest {
     @InjectMocks
     FamilyAnamnesisService serviceUnderTest;
 
-    FamilyAnamnesisTO anamnesisTO;
     FamilyAnamnesis anamnesis1;
 
     List<Illness> father;
@@ -48,7 +47,6 @@ class FamilyAnamnesisServiceTest {
         mother = new ArrayList<>();
         illness1 = new Illness();
         illness2 = new Illness();
-        anamnesisTO = new FamilyAnamnesisTO();
         anamnesis1 = new FamilyAnamnesis();
 
         id = UUID.fromString("c90c0562-7722-4336-be08-3911c3c16398");
@@ -58,10 +56,6 @@ class FamilyAnamnesisServiceTest {
 
         father.add(illness1);
         mother.add(illness2);
-
-        anamnesisTO.setPatientId(id);
-        anamnesisTO.setFather(father);
-        anamnesisTO.setMother(mother);
 
         anamnesis1.setFather(father);
         anamnesis1.setMother(mother);
@@ -97,6 +91,11 @@ class FamilyAnamnesisServiceTest {
 
     @Test
     void createFamilyAnamnesisAndReturnFatherAndMotherDiseasesTest() {
+        FamilyAnamnesisTO anamnesisTO = new FamilyAnamnesisTO();
+        anamnesisTO.setPatientId(id);
+        anamnesisTO.setFather(father);
+        anamnesisTO.setMother(mother);
+
         when(illnessRepository.save(illness1)).thenReturn(illness1);
         when(illnessRepository.save(illness2)).thenReturn(illness2);
 
