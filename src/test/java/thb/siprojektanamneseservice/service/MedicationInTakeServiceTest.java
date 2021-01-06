@@ -5,10 +5,9 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import thb.siprojektanamneseservice.model.*;
+import thb.siprojektanamneseservice.model.MedicationInTake;
 import thb.siprojektanamneseservice.repository.MedicationInTakeRepository;
 import thb.siprojektanamneseservice.transfert.MedicationInTakeTO;
-import thb.siprojektanamneseservice.transfert.PersonTO;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -17,6 +16,7 @@ import java.util.List;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
 class MedicationInTakeServiceTest {
@@ -109,6 +109,6 @@ class MedicationInTakeServiceTest {
         MedicationInTake medicationInTake = serviceUnderTest.update(medicationInTake2.getId(), medicationInTake2);
 
         assertEquals("Paracetamol", medicationInTake.getDesignation());
-        assertEquals(true, medicationInTake.isBloodDiluent());
+        assertTrue(medicationInTake.isBloodDiluent());
     }
 }
