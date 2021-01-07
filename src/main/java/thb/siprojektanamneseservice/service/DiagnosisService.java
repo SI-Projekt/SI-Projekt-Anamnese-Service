@@ -55,7 +55,7 @@ public class DiagnosisService {
         Diagnosis newDiagnosis = new Diagnosis();
 
         newDiagnosis.setId(null);
-        newDiagnosis.setBodyRegion(diagnosisTO.getBodyRegions());
+        newDiagnosis.setBodyRegion(diagnosisTO.getBodyRegion());
         newDiagnosis.setExaminationDate(diagnosisTO.getExaminationDate());
         newDiagnosis.setExaminationName(diagnosisTO.getExaminationName());
         newDiagnosis.setPerson(personFound);
