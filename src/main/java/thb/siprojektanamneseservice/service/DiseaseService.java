@@ -32,6 +32,8 @@ public class DiseaseService {
 
     public List<Disease> listAll() { return  repository.findAll(); }
 
+    public List<Disease> listAllByPersonId(UUID personId) { return  repository.findAllByPersonId(personId); }
+
     public Disease getOne(UUID diseaseId) throws ResourceNotFoundException {
         Optional<Disease> diseaseOP = repository.findById(diseaseId);
         if (!diseaseOP.isPresent()) {

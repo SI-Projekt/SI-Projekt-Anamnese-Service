@@ -16,6 +16,7 @@ import javax.ws.rs.core.MediaType;
 import java.util.UUID;
 
 @RestController
+@CrossOrigin(origins = ApiConstants.CROSS_ORIGIN_PATH)
 @RequestMapping(ApiConstants.MEDICATION_IN_TAKE_ITEM)
 @Validated
 public class MedicationInTakeItemController {

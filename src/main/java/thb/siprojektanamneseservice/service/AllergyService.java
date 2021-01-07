@@ -5,9 +5,12 @@ import org.springframework.stereotype.Service;
 import thb.siprojektanamneseservice.exceptions.ResourceBadRequestException;
 import thb.siprojektanamneseservice.exceptions.ResourceNotFoundException;
 import thb.siprojektanamneseservice.model.Allergy;
+import thb.siprojektanamneseservice.model.Person;
 import thb.siprojektanamneseservice.repository.AllergyRepository;
+import thb.siprojektanamneseservice.repository.PersonRepository;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -17,10 +20,14 @@ import java.util.UUID;
 public class AllergyService {
 
     private final AllergyRepository repository;
+    private final PersonRepository personRepository;
+    private final PersonService personService;
 
     @Autowired
-    public AllergyService(AllergyRepository repository){
+    public AllergyService(AllergyRepository repository, PersonRepository personRepository, PersonService personService){
         this.repository = repository;
+        this.personRepository = personRepository;
+        this.personService = personService;
     }
 
     public List<Allergy> listAll() {
@@ -40,6 +47,22 @@ public class AllergyService {
     public void delete(UUID allergyType) {
         getOne(allergyType);
         repository.deleteById(allergyType);
+    }
+
+    public void deleteByPersonId(UUID personId, UUID allergyTypeId) {
+        getOne(allergyTypeId);
+        Person personFound = personService.getOne(personId);
+        List<Allergy> personAllergies = new ArrayList<>();
+
+        personFound.getAllergies().forEach(allergy -> {
+            if (!allergy.getId().equals(allergyTypeId)) {
+                personAllergies.add(allergy);
+            }
+        });
+
+        personFound.setAllergies(personAllergies);
+
+        personRepository.save(personFound);
     }
 
     /**

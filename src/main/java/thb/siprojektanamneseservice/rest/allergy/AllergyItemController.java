@@ -14,6 +14,7 @@ import javax.ws.rs.core.MediaType;
 import java.util.UUID;
 
 @RestController
+@CrossOrigin(origins = ApiConstants.CROSS_ORIGIN_PATH)
 @RequestMapping(ApiConstants.ALLERGY_TYPE_ITEM)
 public class AllergyItemController {
 

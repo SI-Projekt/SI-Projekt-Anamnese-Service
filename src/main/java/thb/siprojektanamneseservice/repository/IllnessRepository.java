@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import thb.siprojektanamneseservice.model.Illness;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface IllnessRepository
@@ -11,5 +12,4 @@ public interface IllnessRepository
 
     int countById(UUID preExistingIllnessId);
     Illness findByName(String name);
-//    Illness findIllnessByName(String name);
 }

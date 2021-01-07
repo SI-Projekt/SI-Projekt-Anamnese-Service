@@ -31,6 +31,10 @@ public class MedicationInTakeService {
         return  repository.findAll();
     }
 
+    public List<MedicationInTake> listAllByPersonId(UUID personId) {
+        return  repository.findAllByPersonId(personId);
+    }
+
     public MedicationInTake getOne(UUID medicationInTakeId) throws ResourceNotFoundException {
         Optional<MedicationInTake> medicationInTakeOP = repository.findById(medicationInTakeId);
         if (!medicationInTakeOP.isPresent()) {

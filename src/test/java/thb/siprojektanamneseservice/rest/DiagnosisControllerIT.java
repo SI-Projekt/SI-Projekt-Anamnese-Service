@@ -1,8 +1,6 @@
 package thb.siprojektanamneseservice.rest;
 
-import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -10,9 +8,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
+import thb.siprojektanamneseservice.ItBase;
 import thb.siprojektanamneseservice.model.*;
 import thb.siprojektanamneseservice.model.constants.AllergyValues;
 import thb.siprojektanamneseservice.model.constants.ExaminationValues;
@@ -25,15 +23,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import static io.restassured.RestAssured.given;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(locations = "classpath:application-test.properties")
-class DiagnosisControllerIT {
-    
+class DiagnosisControllerIT extends ItBase {
+
     @Autowired
     DiagnosisRepository repository;
     @Autowired
@@ -46,37 +43,38 @@ class DiagnosisControllerIT {
     @Autowired
     PersonRepository personRepository;
 
-    @LocalServerPort
-    private int port;
-    
-    RequestSpecification preLoadedGiven;
     Random random = new Random();
+
     Diagnosis diagnosis1;
     Diagnosis diagnosis2;
+
     Person person1;
     Person person2;
+
     Allergy allergy1;
     Allergy allergy2;
+
     List<Allergy> allergies;
+
     Address address1;
     Address address2;
+
     Security security1;
     Security security2;
 
     @BeforeEach
-    void setUp() throws ParseException {
-        RestAssured.port = port;
-        preLoadedGiven = given();
-        
+    void setUp() throws Exception {
+        super.setup();
+
         allergies = new ArrayList<>();
         allergy1 = allergyRepository.save(buildAllergy());
         allergy2 = allergyRepository.save(buildAllergy());
         allergies.add(allergy1);
         allergies.add(allergy2);
-        
+
         address1 = addressRepository.save(buildAddress());
         address2 = addressRepository.save(buildAddress());
-        
+
         security1 = securityRepository.save(buildSecurity());
         security2 = securityRepository.save(buildSecurity());
 
@@ -99,22 +97,12 @@ class DiagnosisControllerIT {
         diagnosis2 = buildDiagnosis();
         diagnosis2.setPerson(person2);
         diagnosis2 = repository.save(diagnosis2);
-        
-        
+
     }
 
     @AfterEach
-    void tearDown(){
-        //first delete diagnoses
-        repository.deleteAll();
-        //then delete persons
-        personRepository.deleteAll();
-        //then delete addresses
-        addressRepository.deleteAll();
-        //then delete others
-        securityRepository.deleteAll();
-        allergyRepository.deleteAll();
-
+    void tearDown() throws Exception {
+        super.cleanup();
     }
 
     @Test
@@ -227,49 +215,49 @@ class DiagnosisControllerIT {
 
     private Security buildSecurity() {
         Security security = new Security();
-        security.setSecretQuestion("What to believe?"+"-"+random.nextInt(3));
-        security.setAnswer("John 3:16"+"-"+random.nextInt(1));
+        security.setSecretQuestion("What to believe?" + "-" + random.nextInt(3));
+        security.setAnswer("John 3:16" + "-" + random.nextInt(1));
         return security;
     }
 
     private Person buildPerson() {
         Person person = new Person();
-        person.setFirstName("Tamo"+"-"+random.nextInt());
-        person.setLastName("Tani"+"-"+random.nextInt());
-        person.setProfession("Entrepreneur"+"-"+random.nextInt());
-        person.setPhoneNumber("124598762"+"-"+random.nextInt());
-        person.setEmail("tamo@si-project.com"+"-"+random.nextInt());
-        person.setGender(GenderValues.Man.name()+"-"+random.nextInt());
-        person.setMaritalStatus(MaritalStatusValues.SINGLE.name()+"-"+random.nextInt());
+        person.setFirstName("Tamo" + "-" + random.nextInt());
+        person.setLastName("Tani" + "-" + random.nextInt());
+        person.setProfession("Entrepreneur" + "-" + random.nextInt());
+        person.setPhoneNumber("124598762" + "-" + random.nextInt());
+        person.setEmail("tamo@si-project.com" + "-" + random.nextInt());
+        person.setGender(GenderValues.Man.name() + "-" + random.nextInt());
+        person.setMaritalStatus(MaritalStatusValues.SINGLE.name() + "-" + random.nextInt());
         person.setChildren(random.nextBoolean());
         person.setHeight(random.nextInt(5));
         person.setWeight(random.nextFloat());
-        person.setType("Personal"+"-"+random.nextInt());
-        person.setUserName("tamaTani"+"-"+random.nextInt());
-        person.setPassword("secretPwd"+"-"+random.nextInt());
+        person.setType("Personal" + "-" + random.nextInt());
+        person.setUserName("tamaTani" + "-" + random.nextInt());
+        person.setPassword("secretPwd" + "-" + random.nextInt());
         person.setRecorded(random.nextBoolean());
         return person;
     }
 
     private Allergy buildAllergy() {
         Allergy allergy = new Allergy();
-        allergy.setName(AllergyValues.ANIMAL_HAIR.name()+"-"+random.nextInt());
+        allergy.setName(AllergyValues.ANIMAL_HAIR.name() + "-" + random.nextInt());
         return allergy;
     }
 
-    private Address buildAddress(){
+    private Address buildAddress() {
         Address build = new Address();
-        build.setCity("Douala-"+random.nextInt());
-        build.setPostalCode("12458-"+random.nextInt());
-        build.setCountry("Kamerun-"+random.nextInt());
-        build.setStreetAndNumber("Douala Street-"+random.nextInt());
-        return  build;
+        build.setCity("Douala-" + random.nextInt());
+        build.setPostalCode("12458-" + random.nextInt());
+        build.setCountry("Kamerun-" + random.nextInt());
+        build.setStreetAndNumber("Douala Street-" + random.nextInt());
+        return build;
     }
 
     private Diagnosis buildDiagnosis() throws ParseException {
         Diagnosis build = new Diagnosis();
-        build.setBodyRegion("Head"+"-"+random.nextInt());
-        build.setExaminationName(ExaminationValues.Magnetic_Resonance_Imaging.name()+"-"+random.nextInt());
+        build.setBodyRegion("Head" + "-" + random.nextInt());
+        build.setExaminationName(ExaminationValues.Magnetic_Resonance_Imaging.name() + "-" + random.nextInt());
         build.setExaminationDate(new SimpleDateFormat("dd-MM-yyyy").parse("07-01-2021"));
 
         return build;
@@ -277,8 +265,8 @@ class DiagnosisControllerIT {
 
     private DiagnosisTO buildDiagnosisTO() throws ParseException {
         DiagnosisTO build = new DiagnosisTO();
-        build.setBodyRegion("Head"+"-"+random.nextInt());
-        build.setExaminationName(ExaminationValues.Magnetic_Resonance_Imaging.name()+"-"+random.nextInt());
+        build.setBodyRegion("Head" + "-" + random.nextInt());
+        build.setExaminationName(ExaminationValues.Magnetic_Resonance_Imaging.name() + "-" + random.nextInt());
         build.setExaminationDate(new SimpleDateFormat("dd-MM-yyyy").parse("07-01-2021"));
 
         return build;
