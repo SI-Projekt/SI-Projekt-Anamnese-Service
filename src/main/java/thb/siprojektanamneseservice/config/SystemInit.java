@@ -80,9 +80,7 @@ public class SystemInit {
             if (type.equals(PersonTypes.PATIENT.toString().toLowerCase())) {
                 myPerson.setAllergies(allergyRepository.findAll());
             }
-            if (myPerson.getFirstName().equals("Patient1_first")) {
-                myPerson.setRecorded(true);
-            }
+            myPerson.setRecorded(true);
 
             personRepository.saveAndFlush(myPerson);
         }
