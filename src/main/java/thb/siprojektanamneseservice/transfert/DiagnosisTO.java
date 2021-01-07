@@ -14,7 +14,7 @@ public class DiagnosisTO {
 
     private String examinationName;
     private Date examinationDate;
-    private String bodyRegions;
+    private String bodyRegion;
 
     private UUID personId;
 }
