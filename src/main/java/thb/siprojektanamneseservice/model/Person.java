@@ -35,7 +35,7 @@ public class Person implements Serializable {
 
     private String profession;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Address address;
 
     private String phoneNumber;
