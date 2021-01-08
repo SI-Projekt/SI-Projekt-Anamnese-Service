@@ -37,9 +37,9 @@ class AddressControllerIT {
     private int port;
 
     RequestSpecification preLoadedGiven;
+    Random random = new Random();
     Address address1;
     Address address2;
-    Random random = new Random();
 
     @BeforeEach
     void setUp() {

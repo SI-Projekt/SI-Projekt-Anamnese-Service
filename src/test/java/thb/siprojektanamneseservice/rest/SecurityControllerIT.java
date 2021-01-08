@@ -3,6 +3,7 @@ package thb.siprojektanamneseservice.rest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
+import org.junit.AfterClass;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -53,8 +54,8 @@ class SecurityControllerIT {
 
     private Security build() {
         Security security = new Security();
-        security.setSecretQuestion("What to believe?"+"-"+random.nextInt(3));
-        security.setAnswer("John 3:16"+"-"+random.nextInt(1));
+        security.setSecretQuestion("What to believe?"+"-"+random.nextInt());
+        security.setAnswer("John 3:16"+"-"+random.nextInt());
         return security;
     }
 
