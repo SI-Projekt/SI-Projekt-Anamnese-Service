@@ -22,7 +22,7 @@ deploy:
     access_key_id: $AWS_ACCESS_KEY
     secret_access_key: $AWS_SECRET_KEY
     bucket: si-project-bucket
-    key: si-projekt-anamnese-service-0.0.1-SNAPSHOT.jar
+    key: latest.jar
     bundle_type: jar
     application: si-projekt-anamnese-service
     deployment_group: si-projekt-deployment_group_name
@@ -32,6 +32,5 @@ deploy:
 script:
       #- "mvn clean package -Djava.awt.headless=true"
     - "mvn clean verify"
-    - jar -r si-projekt-anamnese-service-0.0.1-SNAPSHOT *
     - mkdir -p dpl_cd_upload
-    - mv target/si-projekt-anamnese-service-0.0.1-SNAPSHOT.jar dpl_cd_upload/si-projekt-anamnese-service-0.0.1-SNAPSHOT.jar
+    - mv target/latest.jar dpl_cd_upload/latest.jar
