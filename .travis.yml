@@ -33,4 +33,4 @@ script:
       #- "mvn clean package -Djava.awt.headless=true"
     - "mvn clean verify"
     - mkdir -p dpl_cd_upload
-    - mv target/latest.jar dpl_cd_upload/latest.jar
+    - mv target/si-projekt-anamnese-service-0.0.1-SNAPSHOT.jar dpl_cd_upload/latest.jar
