@@ -134,6 +134,7 @@
 					<includes>
 						<include>**/*Test.java</include>
 					</includes>
+					<skipTests>true</skipTests>
 				</configuration>
 				<dependencies>
 					<dependency>
@@ -150,6 +151,7 @@
 					<includes>
 						<include>**/*IT.java</include>
 					</includes>
+					<skipTests>true</skipTests>
 				</configuration>
 				<executions>
 					<execution>
