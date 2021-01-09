@@ -14,7 +14,7 @@ deploy:
     secret_access_key: $AWS_SECRET_KEY
     local_dir: dpl_cd_upload
     skip_cleanup: true
-    on: &master
+    on:
       repo: SI-Projekt/SI-Projekt-Anamnese-Service
     bucket: si-project-bucket
     region: us-east-1
@@ -28,7 +28,7 @@ deploy:
     deployment_group: si-projekt-deployment_group_name
     region: us-east-1
     on:
-      branch: *master
+      branch: master
 
 script:
     - mvn clean verify
