@@ -7,11 +7,6 @@ directories:
   - $HOME/.m2
 maven_build:
 stage: build
-script:
-  #- "mvn clean package -Djava.awt.headless=true"
-  - "mvn clean verify"
-  - mkdir -p dpl_cd_upload
-  - mv target/si-projekt-anamnese-service-0.0.1-SNAPSHOT.jar dpl_cd_upload/si-projekt-anamnese-service-0.0.1-SNAPSHOT.jar
 
   deploy:
   - provider: s3
@@ -33,3 +28,9 @@ script:
     deployment_group: si-projekt-deployment_group_name
     region: us-east-1
     on: *2
+
+script:
+      #- "mvn clean package -Djava.awt.headless=true"
+    - "mvn clean verify"
+    - mkdir -p dpl_cd_upload
+    - mv target/si-projekt-anamnese-service-0.0.1-SNAPSHOT.jar dpl_cd_upload/si-projekt-anamnese-service-0.0.1-SNAPSHOT.jar
