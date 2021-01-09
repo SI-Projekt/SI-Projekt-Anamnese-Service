@@ -74,7 +74,8 @@ class AddressControllerIT {
                 .body("city", containsInAnyOrder(address1.getCity(), address2.getCity()))
                 .body("postalCode", containsInAnyOrder(address1.getPostalCode(), address2.getPostalCode()))
                 .body("country", containsInAnyOrder(address1.getCountry(), address2.getCountry()))
-                .body("streetAndNumber", containsInAnyOrder(address1.getStreetAndNumber(), address2.getStreetAndNumber()));
+                .body("streetAndNumber", containsInAnyOrder(address1.getStreetAndNumber(), address2.getStreetAndNumber()))
+        ;
     }
 
     @Test

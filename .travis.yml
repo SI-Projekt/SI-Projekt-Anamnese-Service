@@ -7,6 +7,30 @@ directories:
   - $HOME/.m2
 maven_build:
 stage: build
+
+  deploy:
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+    local_dir: dpl_cd_upload
+    skip_cleanup: true
+    on: &2
+      repo: SI-Projekt/SI-Projekt-Anamnese-Service
+    bucket: si-project-bucket
+    region: us-east-1
+  - provider: codedeploy
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: si-project-bucket
+    key: si-projekt-anamnese-service-0.0.1-SNAPSHOT.jar
+    bundle_type: jar
+    application: si-projekt-anamnese-service
+    deployment_group: si-projekt-deployment_group_name
+    region: us-east-1
+    on: *2
+
 script:
-  #- "mvn clean package -Djava.awt.headless=true"
-  - "mvn clean verify"
+      #- "mvn clean package -Djava.awt.headless=true"
+    - "mvn clean verify"
+    - mkdir -p dpl_cd_upload
+    - mv target/si-projekt-anamnese-service-0.0.1-SNAPSHOT.jar dpl_cd_upload/si-projekt-anamnese-service-0.0.1-SNAPSHOT.jar
