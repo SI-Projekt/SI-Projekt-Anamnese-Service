@@ -1,37 +1,36 @@
 language: java
-sudo: false
+env:
+  global:
+    # include $HOME/.local/bin for `aws`
+    - PATH=$HOME/.local/bin:$PATH
 jdk:
-- openjdk8
+  - openjdk8
 cache:
-directories:
-  - $HOME/.m2
-maven_build:
-stage: build
-
-deploy:
-  - provider: s3
-    access_key_id: $AWS_ACCESS_KEY
-    secret_access_key: $AWS_SECRET_KEY
-    local_dir: dpl_cd_upload
-    skip_cleanup: true
-    on:
-      branch: &master
-        repo: SI-Projekt/SI-Projekt-Anamnese-Service
-    bucket: si-project-bucket
-    region: us-east-1
-  - provider: codedeploy
-    access_key_id: $AWS_ACCESS_KEY
-    secret_access_key: $AWS_SECRET_KEY
-    bucket: si-project-bucket
-    key: latest.jar
-    bundle_type: jar
-    application: si-projekt-anamnese-service
-    deployment_group: si-projekt-deployment_group_name
-    region: us-east-1
-    on:
-      branch: *master
+  directories:
+    - $HOME/.m2
+stages:
+  - name: deploy
+    # require the branch name to be master (note for PRs this is the base branch name)
+    if: branch = travis-integration
 
 script:
-    - mvn clean verify
-    - mkdir -p dpl_cd_upload
-    - mv target/si-projekt-anamnese-service-0.0.1-SNAPSHOT.jar dpl_cd_upload/latest.jar
+  - "mvn clean verify"
+  - mkdir -p dpl_cd_upload
+  - mv target/si-projekt-anamnese-service-0.0.1-SNAPSHOT.jar dpl_cd_upload/si-projekt-anamnese-service-0.0.1-SNAPSHOT.jar
+before_deploy:
+  - pyenv global 3.7.1
+  - pip install -U pip
+  - pip install awscli
+  # make the script executable
+  - chmod +x set_aws_credentials.sh
+  # set up temporary aws session credentials, remember to update env. variables
+  # in the file set_aws_credentials.sh in travis for every login and refresh on aws
+  - ./set_aws_credentials.sh
+
+deploy:
+  - provider: script
+    skip_cleanup: true
+    script: "aws s3 cp dpl_cd_upload/si-projekt-anamnese-service-0.0.1-SNAPSHOT.jar s3://si-project-bucket/ --region us-east-1"
+    on:
+      branch: issue-65-Connect_backend_with_RDS_in_aws
+      repo: "SI-Projekt/SI-Projekt-Anamnese-Service"
