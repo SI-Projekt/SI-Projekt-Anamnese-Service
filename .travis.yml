@@ -12,8 +12,8 @@ script:
 
 deploy:
   - provider: s3
-    access_key_id: $AWS_ACCESS_KEY
-    secret_access_key: $AWS_SECRET_KEY
+    access_key_id: $AWS_ACCESS_KEY_ID
+    secret_access_key: $AWS_SECRET_ACCESS_KEY
     local_dir: dpl_cd_upload
     skip_cleanup: true
     on:
@@ -22,8 +22,8 @@ deploy:
     bucket: si-project-bucket
     region: us-east-1
   - provider: codedeploy
-    access_key_id: $AWS_ACCESS_KEY
-    secret_access_key: $AWS_SECRET_KEY
+    access_key_id: $AWS_ACCESS_KEY_ID
+    secret_access_key: $AWS_SECRET_ACCESS_KEY
     bucket: si-project-bucket
     key: si-projekt-anamnese-service-0.0.1-SNAPSHOT.jar
     application: si-projekt-anamnese-service
