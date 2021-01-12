@@ -10,7 +10,7 @@ script:
   - mkdir -p dpl_cd_upload
   - mv target/si-projekt-anamnese-service-0.0.1-SNAPSHOT.jar dpl_cd_upload/si-projekt-anamnese-service-0.0.1-SNAPSHOT.jar
 
-  deploy:
+deploy:
   - provider: s3
     access_key_id: $AWS_ACCESS_KEY
     secret_access_key: $AWS_SECRET_KEY
