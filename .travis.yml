@@ -19,12 +19,12 @@ deploy:
     on:
       branch: issue-65-Connect_backend_with_RDS_in_aws
       repo: "SI-Projekt/SI-Projekt-Anamnese-Service"
-    bucket: si-project-bucket
+    bucket: si-project-anamnesis-bucket
     region: us-east-1
   - provider: codedeploy
     access_key_id: $AWS_ACCESS_KEY_ID
     secret_access_key: $AWS_SECRET_ACCESS_KEY
-    bucket: si-project-bucket
+    bucket: si-project-anamnesis-bucket
     key: si-projekt-anamnese-service-0.0.1-SNAPSHOT.jar
     application: si-projekt-anamnese-service
     deployment_group: si-projekt-deployment_group_name
