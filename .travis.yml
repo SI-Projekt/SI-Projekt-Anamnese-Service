@@ -27,7 +27,7 @@ deploy:
     bucket: si-project-anamnesis-bucket
     key: si-projekt-anamnese-service-0.0.1-SNAPSHOT.jar
     bundle_type: jar
-    application: si-projekt-anamnese-service
+    application: si-projekt-anamnese_service
     deployment_group: si-projekt-deployment_group_name
     region: us-east-1
     on:
