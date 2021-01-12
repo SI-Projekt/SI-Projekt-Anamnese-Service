@@ -52,7 +52,6 @@ public class AddressService {
         return repository.save(newAddress);
     }
 
-
     public Address update(UUID addressId, Address update) throws ResourceNotFoundException {
         Address addressFound = getOne(addressId);
 
