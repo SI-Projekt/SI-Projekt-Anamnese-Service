@@ -7,8 +7,9 @@ cache:
 script:
   #- "mvn clean package -Djava.awt.headless=true"
   - "mvn clean verify"
+  - zip si-project-artifact.zip target/si-projekt-anamnese-service-0.0.1-SNAPSHOT.jar
   - mkdir -p dpl_cd_upload
-  - mv target/si-projekt-anamnese-service-0.0.1-SNAPSHOT.jar dpl_cd_upload/si-projekt-anamnese-service-0.0.1-SNAPSHOT.jar
+  - mv si-project-artifact.zip dpl_cd_upload/si-project-artifact.zip
 
 deploy:
   - provider: s3
@@ -25,8 +26,8 @@ deploy:
     access_key_id: $AWS_ACCESS_KEY_ID
     secret_access_key: $AWS_SECRET_ACCESS_KEY
     bucket: si-project-anamnesis-bucket
-    key: si-projekt-anamnese-service-0.0.1-SNAPSHOT.jar
-    bundle_type: jar
+    key: si-project-artifact.zip
+    bundle_type: zip
     application: si-projekt-anamnese_service
     deployment_group: si-projekt-deployment_group_name
     region: us-east-1
