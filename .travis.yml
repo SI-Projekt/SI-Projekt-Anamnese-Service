@@ -35,7 +35,7 @@ deploy:
     application: si-projekt-anamnese_service
     deployment_group: si-projekt-deployment_group_name
     region: us-east-1
-    wait_until_deployed: true
+    #wait_until_deployed: true
     on:
       branch: issue-65-Connect_backend_with_RDS_in_aws
       repo: "SI-Projekt/SI-Projekt-Anamnese-Service"
