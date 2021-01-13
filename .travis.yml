@@ -6,7 +6,8 @@ cache:
     - $HOME/.m2
 services:
   - postgresql
-
+before_script:
+  - psql -c 'create database si_project_db;' -U postgres
 script:
   - "mvn clean verify"
   - zip si-project-artifact.zip target/si-projekt-anamnese-service-0.0.1-SNAPSHOT.jar
