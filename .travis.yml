@@ -7,7 +7,6 @@ cache:
 
 services:
   - postgresql
-
 before_script:
   - psql -c 'create database si_project_db;' -U postgres
 
