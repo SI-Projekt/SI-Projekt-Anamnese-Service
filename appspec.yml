@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 files:
   - source: ./target/si-projekt-anamnese-service-0.0.1-SNAPSHOT.jar
-      destination: /home/ec2-user/app
+    destination: /home/ec2-user/app
 permissions:
   - object: /
     pattern: "**"
