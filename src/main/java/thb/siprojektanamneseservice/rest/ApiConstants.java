@@ -6,7 +6,7 @@ public class ApiConstants {
     public static final String API = "api";
 
     // Cross-Origin:
-    public static final String CROSS_ORIGIN_PATH = "http://localhost:5555";
+    public static final String CROSS_ORIGIN_PATH = "http://si-project-webapp-bucket.s3-website-us-east-1.amazonaws.com";
 
     // Sessions:
     public static final String SESSIONS_COLLECTION = "/sessions";
