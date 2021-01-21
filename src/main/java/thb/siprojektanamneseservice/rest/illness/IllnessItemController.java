@@ -16,6 +16,7 @@ import javax.ws.rs.core.MediaType;
 import java.util.UUID;
 
 @RestController
+@CrossOrigin(origins = ApiConstants.CROSS_ORIGIN_PATH)
 @RequestMapping(ApiConstants.PRE_EXISTING_ILLNESS_ITEM)
 @Validated
 public class IllnessItemController {

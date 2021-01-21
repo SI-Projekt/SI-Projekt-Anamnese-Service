@@ -11,5 +11,7 @@ public interface PersonRepository
         extends JpaRepository<Person, UUID>, JpaSpecificationExecutor<Person> {
 
     int countById(UUID personId);
+    Person findByUserName(String userName);
+    Person findByIdAndAllergiesContaining(UUID personId, String allergyName);
 
 }

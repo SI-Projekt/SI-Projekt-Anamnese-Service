@@ -10,5 +10,5 @@ public interface SecurityRepository
         extends JpaRepository<Security, UUID>, JpaSpecificationExecutor<Security> {
 
     int countById(UUID securityId);
-    Security findBySecretQuestion(String secretQuestion);
+    Security findBySecretQuestionAndAndAnswer(String secretQuestion, String answer);
 }

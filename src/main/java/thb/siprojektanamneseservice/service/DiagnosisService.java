@@ -31,6 +31,8 @@ public class DiagnosisService {
         return  repository.findAll();
     }
 
+    public List<Diagnosis> listAllByPersonId(UUID personId) { return  repository.findAllByPersonId(personId); }
+
     public Diagnosis getOne(UUID diagnosisId) throws ResourceNotFoundException {
         Optional<Diagnosis> diagnosisOP = repository.findById(diagnosisId);
         if (!diagnosisOP.isPresent()) {

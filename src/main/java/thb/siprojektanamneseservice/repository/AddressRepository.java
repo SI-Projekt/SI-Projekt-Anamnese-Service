@@ -10,5 +10,4 @@ public interface AddressRepository
         extends JpaRepository<Address, UUID>, JpaSpecificationExecutor<Address> {
 
     int countById(UUID addressId);
-    Address findAddressByPostalCode(String postalCode);
 }

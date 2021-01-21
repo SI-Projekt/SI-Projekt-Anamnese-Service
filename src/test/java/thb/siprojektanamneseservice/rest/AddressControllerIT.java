@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
+import thb.siprojektanamneseservice.ItBase;
 import thb.siprojektanamneseservice.model.Address;
 import thb.siprojektanamneseservice.repository.AddressRepository;
 
@@ -28,33 +29,25 @@ import static org.hamcrest.Matchers.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(locations = "classpath:application-test.properties")
-class AddressControllerIT {
+class AddressControllerIT  extends ItBase {
 
     @Autowired
     AddressRepository repository;
 
-    @LocalServerPort
-    private int port;
-
-    RequestSpecification preLoadedGiven;
     Random random = new Random();
     Address address1;
     Address address2;
 
     @BeforeEach
-    void setUp() {
-        RestAssured.port = port;
-
-        preLoadedGiven = given();
-        address1 = build();
-
-        address1 = repository.save(address1);
+    void setUp() throws Exception {
+        super.setup();
+        address1 = repository.save(build());
         address2 = repository.save(build());
     }
 
     @AfterEach
-    void tearDown() {
-        repository.deleteAll();
+    void tearDown() throws Exception {
+        super.cleanup();
     }
 
     private Address build(){
@@ -68,13 +61,18 @@ class AddressControllerIT {
 
     @Test
     void listAllTest() {
-        preLoadedGiven.get(ApiConstants.ADDRESS_ROOT).then().log().body().statusCode(200)
-                .body("size()", is(equalTo(2)))
-                .body("id", containsInAnyOrder(address1.getId().toString(), address2.getId().toString()))
-                .body("city", containsInAnyOrder(address1.getCity(), address2.getCity()))
-                .body("postalCode", containsInAnyOrder(address1.getPostalCode(), address2.getPostalCode()))
-                .body("country", containsInAnyOrder(address1.getCountry(), address2.getCountry()))
-                .body("streetAndNumber", containsInAnyOrder(address1.getStreetAndNumber(), address2.getStreetAndNumber()))
+        preLoadedGiven
+                .log().all()
+                .get(ApiConstants.ADDRESS_ROOT)
+                .then()
+                .log().body()
+                .statusCode(200)
+                .body("size()", is(equalTo(3)))
+                .body("id", containsInAnyOrder(myAddress.getId().toString(), address1.getId().toString(), address2.getId().toString()))
+                .body("city", containsInAnyOrder(myAddress.getCity(), address1.getCity(), address2.getCity()))
+                .body("postalCode", containsInAnyOrder(myAddress.getPostalCode(), address1.getPostalCode(), address2.getPostalCode()))
+                .body("country", containsInAnyOrder(myAddress.getCountry(), address1.getCountry(), address2.getCountry()))
+                .body("streetAndNumber", containsInAnyOrder(myAddress.getStreetAndNumber(), address1.getStreetAndNumber(), address2.getStreetAndNumber()))
         ;
     }
 

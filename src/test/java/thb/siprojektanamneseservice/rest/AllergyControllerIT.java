@@ -1,8 +1,6 @@
 package thb.siprojektanamneseservice.rest;
 
-import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -10,9 +8,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
+import thb.siprojektanamneseservice.ItBase;
 import thb.siprojektanamneseservice.model.Allergy;
 import thb.siprojektanamneseservice.model.constants.AllergyValues;
 import thb.siprojektanamneseservice.repository.AllergyRepository;
@@ -21,44 +19,36 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.UUID;
 
-import static io.restassured.RestAssured.given;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(locations = "classpath:application-test.properties")
-class AllergyControllerIT {
+class AllergyControllerIT extends ItBase {
 
     @Autowired
     AllergyRepository repository;
 
-    @LocalServerPort
-    private int port;
-
-    RequestSpecification preLoadedGiven;
     Random random = new Random();
     Allergy allergy1;
     Allergy allergy2;
 
     @BeforeEach
-    void setUp(){
-        RestAssured.port = port;
-
-        preLoadedGiven = given();
-        allergy1 = build();
-        allergy1 = repository.save(allergy1);
+    void setUp() throws Exception {
+        super.setup();
+        allergy1 = repository.save(build());
         allergy2 = repository.save(build());
     }
 
     @AfterEach
-    void tearDown() {
-        repository.deleteAll();
+    void tearDown() throws Exception {
+        super.cleanup();
     }
 
     private Allergy build() {
         Allergy allergy = new Allergy();
-        allergy.setName(AllergyValues.ANIMAL_HAIR.name()+"-"+random.nextInt());
+        allergy.setName(AllergyValues.ANIMAL_HAIR.name() + "-" + random.nextInt());
         return allergy;
     }
 
@@ -79,8 +69,8 @@ class AllergyControllerIT {
     void listAllTest() {
         preLoadedGiven.get(ApiConstants.ALLERGY_TYPE_ROOT).then().log().body().statusCode(200)
                 .body("size()", is(equalTo(2)))
-                .body("id",containsInAnyOrder(allergy1.getId().toString(), allergy2.getId().toString()))
-                .body("name",containsInAnyOrder(allergy1.getName(), allergy2.getName()));
+                .body("id", containsInAnyOrder(allergy1.getId().toString(), allergy2.getId().toString()))
+                .body("name", containsInAnyOrder(allergy1.getName(), allergy2.getName()));
     }
 
     @Test

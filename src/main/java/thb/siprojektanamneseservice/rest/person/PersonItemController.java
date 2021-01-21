@@ -16,7 +16,8 @@ import javax.ws.rs.core.MediaType;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(ApiConstants.PATIENT_ITEM)
+@CrossOrigin(origins = ApiConstants.CROSS_ORIGIN_PATH)
+@RequestMapping(value = ApiConstants.PERSON_ITEM)
 @Validated
 public class PersonItemController {
 

@@ -32,7 +32,6 @@ public class Disease {
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "disease_preExistingIllnesses",
             joinColumns = @JoinColumn(name = "disease_Id"),
-            inverseJoinColumns = @JoinColumn(name = "preExistingIllnesses_id")
-    )
+            inverseJoinColumns = @JoinColumn(name = "preExistingIllnesses_id"))
     private List<Illness> preExistingIllnesses = new ArrayList<>();
 }

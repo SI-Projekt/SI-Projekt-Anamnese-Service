@@ -1,6 +1,7 @@
 package thb.siprojektanamneseservice.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import thb.siprojektanamneseservice.exceptions.ResourceBadRequestException;
 import thb.siprojektanamneseservice.exceptions.ResourceNotFoundException;
@@ -15,7 +16,10 @@ import thb.siprojektanamneseservice.repository.SecurityRepository;
 import thb.siprojektanamneseservice.transfert.PersonTO;
 
 import javax.transaction.Transactional;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service("PersonService")
 @Transactional(rollbackOn = Exception.class)
@@ -25,17 +29,19 @@ public class PersonService {
     private final AllergyRepository allergyRepository;
     private final AddressRepository addressRepository;
     private final SecurityRepository securityRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public PersonService(PersonRepository repository, AllergyRepository allergyRepository, AddressRepository addressRepository, SecurityRepository securityRepository){
+    public PersonService(PersonRepository repository, AllergyRepository allergyRepository, AddressRepository addressRepository, SecurityRepository securityRepository, PasswordEncoder passwordEncoder) {
         this.repository = repository;
         this.allergyRepository = allergyRepository;
         this.addressRepository = addressRepository;
         this.securityRepository = securityRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public List<Person> listAll() {
-        return  repository.findAll();
+        return repository.findAll();
     }
 
     public Person getOne(UUID personId) throws ResourceNotFoundException {
@@ -61,18 +67,17 @@ public class PersonService {
         Person newPerson = new Person();
         newPerson.setAllergies(new ArrayList<>());
 
-        Security security = securityRepository.findBySecretQuestion(newPersonTO.getSecretQuestion());
-        if (security == null){
-            security = new Security();
-            security.setAnswer(newPersonTO.getAnswer());
-            security.setSecretQuestion(newPersonTO.getSecretQuestion());
-            security = securityRepository.save(security);
-        }
+        // about security:
+        Security security = new Security();
+        security.setAnswer(newPersonTO.getAnswer());
+        security.setSecretQuestion(newPersonTO.getSecretQuestion());
+        security = securityRepository.save(security);
 
+        // about allergies:
         newPersonTO.getAllergyNames().forEach(name -> {
             Allergy allergyFound = allergyRepository.findByName(name);
 
-            if (allergyFound == null){
+            if (allergyFound == null) {
                 allergyFound = new Allergy();
                 allergyFound.setName(name);
                 allergyFound = allergyRepository.save(allergyFound);
@@ -80,17 +85,16 @@ public class PersonService {
             newPerson.getAllergies().add(allergyFound);
         });
 
-        Address address = addressRepository
-                .findAddressByPostalCode(newPersonTO.getPostalCode());
-        if (address == null){
-            address = new Address();
-            address.setCity(newPersonTO.getCity());
-            address.setCountry(newPersonTO.getCountry());
-            address.setPostalCode(newPersonTO.getPostalCode());
-            address.setStreetAndNumber(newPersonTO.getStreetAndNumber());
-            address = addressRepository.save(address);
-        }
+        // about address:
+        Address address = new Address();
+        address.setCity(newPersonTO.getCity());
+        address.setCountry(newPersonTO.getCountry());
+        address.setPostalCode(newPersonTO.getPostalCode());
+        address.setStreetAndNumber(newPersonTO.getStreetAndNumber());
+        address = addressRepository.save(address);
 
+
+        // about person:
         newPerson.setId(null);
 
         newPerson.setSecurity(security);
@@ -108,10 +112,10 @@ public class PersonService {
         newPerson.setMaritalStatus(newPersonTO.getMaritalStatus());
         newPerson.setUserName(newPersonTO.getUserName());
 
-        newPerson.setPassword(newPersonTO.getPassword());
+        newPerson.setPassword(passwordEncoder.encode(newPersonTO.getPassword()));
         newPerson.setPhoneNumber(newPersonTO.getPhoneNumber());
-        newPerson.setRecorded(newPersonTO.isRecorded());
         newPerson.setType(newPersonTO.getType());
+        newPerson.setRecorded(false);
 
         return repository.save(newPerson);
     }
@@ -119,7 +123,7 @@ public class PersonService {
     public Person update(UUID personId, Person update) throws ResourceNotFoundException {
         Person personFound = getOne(personId);
 
-        if (!personFound.getId().equals(update.getId())){
+        if (!personFound.getId().equals(update.getId())) {
             checkForUniqueness(update);
         }
         update.setId(personId);
@@ -127,7 +131,7 @@ public class PersonService {
     }
 
     private void checkForUniqueness(Person person) {
-        if (repository.countById(person.getId()) > 0){
+        if (repository.countById(person.getId()) > 0) {
             throw new ResourceBadRequestException(
                     String.format("A person with the id %s already exist", person.getId())
             );
