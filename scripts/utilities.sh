@@ -8,6 +8,14 @@ else
   sudo yum -y install jq
 fi
 
+# install postgresql client
+if [ -e /usr/bin/psql ]; then
+  echo "postgresql client installed";
+else
+  echo "Installing postgresql client ";
+  sudo yum -y install postgresql
+fi
+
 # install dos2unix to enable aws recognizing script as such
 if [ -e /usr/bin/dos2unix ]; then
   echo "dos2unix installed";
