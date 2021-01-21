@@ -11,5 +11,9 @@ permissions:
 hooks:
   ApplicationStop:
     - location: scripts/stopapp.sh
+  BeforeInstall:
+    - location: scripts/utilities.sh
+  AfterInstall:
+    - location: scripts/set-env.sh
   ApplicationStart:
     - location: scripts/startappsilent.sh
