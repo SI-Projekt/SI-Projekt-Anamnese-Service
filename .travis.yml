@@ -20,7 +20,7 @@ deploy:
     local_dir: dpl_cd_upload
     skip_cleanup: true
     on:
-      branch: issue-70-clean_up
+      branch: master
       repo: "SI-Projekt/SI-Projekt-Anamnese-Service"
     bucket: si-project-backend-deployment
     region: us-east-1
@@ -35,5 +35,5 @@ deploy:
     region: us-east-1
     wait_until_deployed: true
     on:
-      branch: issue-70-clean_up
+      branch: master
       repo: "SI-Projekt/SI-Projekt-Anamnese-Service"
