@@ -29,11 +29,12 @@ ___
 
 #### Ziel
 Ein Prototyp der Anwendung soll entwickeln und in AWS-Cloud bereitgestellt werden. Mithilfe von SaaS Lösungen soll die Andwendung automatisch gebaut, kontinuierlich integriert und bereitgestellt werden.
+
 #### Aufgabenstellung
-Damit der Entwicklungs- und der Bereitstellungsprozess automatisch Ablauft, werden SaaS (Software as a Service) benötigt, die die Automatisierung ermöglicht macht. Passende Werkzeuge bzw. Technologien werden zunächst zusammengestellt
-#### Abzrenzung
-Es wird nicht auf den Vergleich Tools eingegangen, um den
-#### Ergebnis
+Damit der Entwicklungs- und der Bereitstellungsprozess automatisch Ablauft, werden SaaS (Software as a Service) benötigt, die die Automatisierung ermöglicht macht. Dazu werden Passende Werkzeuge bzw. Technologien zusammengestellt. Desweiteren werden die Benutzeroberfläche getrennt vom Server (Backend)
+entwickeln. Um die Kommunication mit dem AWS Cloud zu ermöglichen, werden Rollen und Zugriffsrechten erstellt und so vergeben, dass Der CI-Server auf dem *Simple storage*, auch S3 genannt, um die Anwendung (Backend) dort zu befordern. Von dort übernimmt den CodeDeploy die Bereitstellung auf das Ec2. Instanzen.
+Die Bereitstellung der Benützeroberfläche (Frontend) verläult denselben Weg wie das Backend, allerdings nur bis zu S3.  
+
 ___
 ## Verwendete Technologien/Tools
 
@@ -124,11 +125,6 @@ Die Datenbank (In Folge: DB) ist in einem privaten Subnetz configuriert, welches
 Im öffentliche Subnetz wird das Backend in einer EC2-Instanz bereitgestellt. In der Sicherheitsgruppe der DB wird den Zugang für die EC2-Instanz freigeschaltet. Auf dieser Weise wird die API für das Frontend zu Verfügunggestellt. Der Weg geht über eine Internet Gateway, welcher dann am VPC gebunden ist, nach Draußen.
 
 #### Travis-CI in Frontend
+In dieser Datei werden fünf wesentliche Schritten des Softwarebereitstellungsprozesses aufgezeigt: "before-script", "script", "before_install", "before_deploy" und die "deploy". In den "bevor"-Phasen werden Vorkehrungen getroffen die für die nächste Phasen benötigt werden. Im *bevor_script* werden dependencies installiert und im *script* das Projekt gebaut. Ebenso wird vor dem *deploy* die Authentifikation durchgeführt. Erst dann wird das Resultat des Builds von der Github *branch* Master getriggert.
 ___
 ## Archikteturüberblick
-___
-# Fazit
-
-# Literatur
-[1] https://stackprint.io/post/how-to-deploy-angular-app-to-aws-s3
-[2] https://docs.aws.amazon.com/de_de/AmazonS3/latest/dev/cors.html
