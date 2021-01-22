@@ -8,12 +8,14 @@ import thb.siprojektanamneseservice.model.Allergy;
 import thb.siprojektanamneseservice.model.Person;
 import thb.siprojektanamneseservice.repository.AllergyRepository;
 import thb.siprojektanamneseservice.repository.PersonRepository;
+import thb.siprojektanamneseservice.transfert.AllergyTO;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service("AllergyTypeService")
 @Transactional(rollbackOn = Exception.class)
@@ -73,6 +75,28 @@ public class AllergyService {
         checkForUniqueness(newAllergy);
         newAllergy.setId(null);
         return repository.save(newAllergy);
+    }
+
+    /**
+     * @param allergyTO to be created
+     * @return The new created allergyType
+     */
+    public Person createByPatientId(AllergyTO allergyTO) {
+        Person personFound = personService.getOne(allergyTO.getPatientId());
+        List<Allergy> newAllergies = new ArrayList<>();
+
+        if (personFound != null) {
+            List<String> personAllergies = personFound.getAllergies()
+                    .stream().map(allergy -> allergy.getName()).collect(Collectors.toList());
+
+            allergyTO.getAllergies().forEach(allergyName -> {
+                if (!personAllergies.contains(allergyName)) {
+                    personFound.getAllergies().add(repository.save(new Allergy(null, allergyName)));
+                }
+            });
+        }
+
+        return personRepository.save(personFound);
     }
 
 

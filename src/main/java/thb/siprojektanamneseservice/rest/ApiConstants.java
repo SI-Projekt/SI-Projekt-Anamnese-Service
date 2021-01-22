@@ -23,6 +23,7 @@ public class ApiConstants {
     public static final String PERSON_DIAGNOSIS_ROOT = PERSON_ITEM + "/diagnosis";
     public static final String PERSON_DISEASE_ROOT = PERSON_ITEM + "/diseases";
     public static final String PERSON_MEDICATION_IN_TAKE_ROOT = PERSON_ITEM + "/medication_in_takes";
+    public static final String PERSON_ALLERGY_ROOT = PERSON_ITEM + "/allergies";
 
     // MedicationInTake
     public static final String MEDICATION_IN_TAKE_ROOT = API + "/medication_in_takes";
