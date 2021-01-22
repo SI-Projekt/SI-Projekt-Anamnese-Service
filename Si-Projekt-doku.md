@@ -131,4 +131,4 @@ ___
 
 # Literatur
 [1] https://stackprint.io/post/how-to-deploy-angular-app-to-aws-s3
-
+[2] https://docs.aws.amazon.com/de_de/AmazonS3/latest/dev/cors.html
