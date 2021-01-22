@@ -77,7 +77,7 @@ Hier werden die verschiedenen Endpoints für das Frontend bereitgestellt, die Ve
   - Maven für die automatische Bereitstellung der Dependencies und Bauen des Projekts
 
 #### Bereitstellungsprozess
-
+(ci_cd.png)
 Hier wird der Bereitstellungsprozess mit einem "git"-Befehl (git push) auf eigenem Rechner gestartet. Automatisch wird zum Bauen der Anwendung das Maven (bzw. npm von Node) Tool angesetzt. Da der Build-Prozess mit den unterschiedlichen Testphasen in Travis-CI eingebettet ist, wird nach erfolgreichem Build die Anwendung in den AWS-Cloudumgebung bereitgestellt.
 
 #### Travis-CI in Backend
@@ -128,3 +128,4 @@ Im öffentliche Subnetz wird das Backend in einer EC2-Instanz bereitgestellt. In
 In dieser Datei werden fünf wesentliche Schritten des Softwarebereitstellungsprozesses aufgezeigt: "before-script", "script", "before_install", "before_deploy" und die "deploy". In den "bevor"-Phasen werden Vorkehrungen getroffen die für die nächste Phasen benötigt werden. Im *bevor_script* werden dependencies installiert und im *script* das Projekt gebaut. Ebenso wird vor dem *deploy* die Authentifikation durchgeführt. Erst dann wird das Resultat des Builds von der Github *branch* Master getriggert.
 ___
 ## Archikteturüberblick
+Siehe architektur.png
