@@ -83,18 +83,19 @@ public class AllergyService {
      */
     public Person createByPatientId(AllergyTO allergyTO) {
         Person personFound = personService.getOne(allergyTO.getPatientId());
-        List<Allergy> newAllergies = new ArrayList<>();
 
-        if (personFound != null) {
-            List<String> personAllergies = personFound.getAllergies()
-                    .stream().map(allergy -> allergy.getName()).collect(Collectors.toList());
+        personFound.setAllergies(new ArrayList<>());
+        allergyTO.getAllergies().forEach(allergyName -> {
+            Allergy allergyFound = repository.findByName(allergyName);
 
-            allergyTO.getAllergies().forEach(allergyName -> {
-                if (!personAllergies.contains(allergyName)) {
-                    personFound.getAllergies().add(repository.save(new Allergy(null, allergyName)));
-                }
-            });
-        }
+            if (allergyFound == null) {
+                allergyFound = new Allergy();
+                allergyFound.setName(allergyName);
+                allergyFound = repository.save(allergyFound);
+            }
+
+            personFound.getAllergies().add(allergyFound);
+        });
 
         return personRepository.save(personFound);
     }

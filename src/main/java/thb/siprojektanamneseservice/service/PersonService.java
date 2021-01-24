@@ -3,6 +3,7 @@ package thb.siprojektanamneseservice.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.testcontainers.shaded.javax.ws.rs.BadRequestException;
 import thb.siprojektanamneseservice.exceptions.ResourceBadRequestException;
 import thb.siprojektanamneseservice.exceptions.ResourceNotFoundException;
 import thb.siprojektanamneseservice.model.Address;
@@ -13,13 +14,14 @@ import thb.siprojektanamneseservice.repository.AddressRepository;
 import thb.siprojektanamneseservice.repository.AllergyRepository;
 import thb.siprojektanamneseservice.repository.PersonRepository;
 import thb.siprojektanamneseservice.repository.SecurityRepository;
+import thb.siprojektanamneseservice.search.criteria.PersonCriteria;
+import thb.siprojektanamneseservice.search.specs.PersonSpecs;
 import thb.siprojektanamneseservice.transfert.PersonTO;
+import thb.siprojektanamneseservice.transfert.ResetPasswordTO;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service("PersonService")
 @Transactional(rollbackOn = Exception.class)
@@ -128,6 +130,22 @@ public class PersonService {
         }
         update.setId(personId);
         return repository.save(update);
+    }
+
+    public List<Person> search(PersonCriteria personCriteria) {
+        PersonSpecs specs = new PersonSpecs(personCriteria);
+        return repository.findAll(specs);
+    }
+
+    public void resetPassword(UUID personId, ResetPasswordTO resetPasswordTO) {
+        Person personFound = getOne(personId);
+
+        if (personFound.getSecurity().getAnswer().equals(resetPasswordTO.getAnswer())) {
+            throw new BadRequestException(
+                    String.format("The given answer dont match the security answer of the user id=%s", personId.toString())
+            );
+        }
+        personFound.setPassword(passwordEncoder.encode(resetPasswordTO.getPassword()));
     }
 
     private void checkForUniqueness(Person person) {

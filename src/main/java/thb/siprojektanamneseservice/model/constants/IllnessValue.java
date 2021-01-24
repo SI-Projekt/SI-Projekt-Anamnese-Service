@@ -2,20 +2,20 @@ package thb.siprojektanamneseservice.model.constants;
 
 public enum IllnessValue {
 
-    BLOOD_COAGULATION_DISORDER("blood coagulation disorder"),
-    EAR_DISEASE("ear disease"),
-    EYE_DISEASE("eye disease"),
-    GASTRO_OR_INTESTINAL_DISEASE("gastro or intestinal disease"),
-    HEART_DISEASE("heart_disease"),
-    JOINT_DISEASE("joint disease"),
-    KIDNEY_DISEASE("kidney disease"),
-    LIVER_DISEASE("liver disease"),
-    MENTAL_ILLNESS("mental illness"),
-    PULMONARY_DISEASE("pulmonary disease"),
-    SKIN_DISEASE("skin disease"),
-    THYROID_DISEASE("thyroid_disease"),
-    URIC_ACID_METABOLISM_DISORDER("uric acid metabolism disorder"),
-    VASCULAR_DISEASES("vascular diseases");
+    BLOOD_COAGULATION_DISORDER("Blutgerinnungsstörung"),
+    EAR_DISEASE("Ohrerkrankung"),
+    EYE_DISEASE("Augenerkrankung"),
+    GASTRO_OR_INTESTINAL_DISEASE("Magen- und(oder) Darmerkrankung"),
+    HEART_DISEASE("Herzkrankheit"),
+    JOINT_DISEASE("Gelenkerkrankung"),
+    KIDNEY_DISEASE("Nierenerkrankungen"),
+    LIVER_DISEASE("Lebererkrankung"),
+    MENTAL_ILLNESS("Geisteskrankheit oder psychische Krankheit"),
+    PULMONARY_DISEASE("Lungenerkrankung"),
+    SKIN_DISEASE("Hauterkrankung"),
+    THYROID_DISEASE("Schilddrüsenerkrankung"),
+    URIC_ACID_METABOLISM_DISORDER("Harnsäure- oder Stoffwechselstörung"),
+    VASCULAR_DISEASES("Gefäßerkrankungen");
 
     private final String preExistingIllnesValue;
 
