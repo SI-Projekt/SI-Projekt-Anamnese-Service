@@ -132,7 +132,7 @@ public class SystemInit {
 
         for (String name : allergiesNames) {
             if (allergyRepository.findByName(name) == null) {
-                allergyRepository.saveAndFlush(new Allergy(null, name.toLowerCase()));
+                allergyRepository.saveAndFlush(new Allergy(null, name));
             }
         }
     }

@@ -32,7 +32,7 @@ public class PersonAllergyRootController {
         this.allergyService = allergyService;
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.POST)
     @Produces(MediaType.APPLICATION_JSON)
     public Person createAllergy(@PathVariable("personId") UUID personId, @RequestBody @Valid AllergyTO allergyTO){
         log.info("Create allergy by personId [id={}]", personId);
