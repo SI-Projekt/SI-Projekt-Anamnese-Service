@@ -9,6 +9,7 @@ import thb.siprojektanamneseservice.model.constants.PersonTypes;
 import thb.siprojektanamneseservice.repository.*;
 
 import javax.annotation.PostConstruct;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -69,21 +70,39 @@ public class SystemInit {
             myPerson.setAddress(addresses.isEmpty()? null: addresses.iterator().next());
             myPerson.setPhoneNumber("+493045789");
             myPerson.setEmail("steve@Electronicien.com");
-            myPerson.setGender("M");
+
             myPerson.setMaritalStatus("single");
             myPerson.setHeight(170);
             myPerson.setWeight(78);
             myPerson.setType(type);
             myPerson.setProfession("Informatiker");
             myPerson.setSecurity(securities.isEmpty()? null: securities.iterator().next());
+            myPerson.setRecorded(true);
+
+            if (getRandom(1) == 1) {
+                myPerson.setGender("M");
+            } else {
+                myPerson.setGender("W");
+            }
 
             if (type.equals(PersonTypes.PATIENT.toString().toLowerCase())) {
-                myPerson.setAllergies(allergyRepository.findAll());
+                List<Allergy> allergiesFound = allergyRepository.findAll();
+                List<Allergy> newAllergies = new ArrayList<>();
+                int max = allergiesFound.size() - 1;
+
+                newAllergies.add(allergiesFound.get(getRandom(max)));
+                newAllergies.add(allergiesFound.get(getRandom(max)));
+                newAllergies.add(allergiesFound.get(getRandom(max)));
+
+                myPerson.setAllergies(newAllergies);
             }
-            myPerson.setRecorded(true);
 
             personRepository.saveAndFlush(myPerson);
         }
+    }
+
+    private int getRandom(int max) {
+        return 0 + (int)(Math.random() * ((max - 0) + 1));
     }
 
     private void buildAdress() {
@@ -108,9 +127,7 @@ public class SystemInit {
 
     private void buildAllergy() {
         String[] allergiesNames = {
-                AllergyValues.ANIMAL_HAIR.toString(),
-                AllergyValues.ANTIBIOTICS.toString(),
-                AllergyValues.FRUCTOSE.toString()
+                "Antibiotikum", "Fruktose", "Nahrungsmittel", "Pollen", "Radiodurchlässige Substanz"
         };
 
         for (String name : allergiesNames) {
@@ -125,7 +142,7 @@ public class SystemInit {
                 "Blutgerinnungsstörung", "Ohrerkrankung", "Augenerkrankung", "Magen- und(oder) Darmerkrankung",
                 "Herzkrankheit", "Gelenkerkrankung", "Nierenerkrankungen", "Lebererkrankung", "Lungenerkrankung",
                 "Geisteskrankheit oder psychische Krankheit", "Hauterkrankung", "Schilddrüsenerkrankung",
-                "Harnsäure-Stoffwechselstörung", "Gefäßerkrankungen"
+                "Harnsäure- oder Stoffwechselstörung", "Gefäßerkrankungen"
         };
 
         for (String name : illnessNames) {

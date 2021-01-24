@@ -9,9 +9,9 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 
 @EnableJpaAuditing
 @EnableResourceServer
+@SpringBootApplication
 @EnableJpaRepositories(basePackages = {"thb.siprojektanamneseservice.repository"})
 @EntityScan(basePackages = {"thb.siprojektanamneseservice.model"})
-@SpringBootApplication
 public class SiProjektAnamneseServiceApplication {
 
     public static void main(String[] args) {

@@ -2,17 +2,17 @@ package thb.siprojektanamneseservice.model.constants;
 
 
 public enum AllergyValues {
-    ANTIBIOTICS("antibiotics"),
-    FRUCTOSE("fructose"),
-    FOODS("foods"),
-    POLLEN("pollen"),
-    RADIO_OPAQUE_SUBSTANCE("radio_opaque_substance"),
-    ANIMAL_HAIR("animal_hair"),
-    LOCAL_ANAESTHETICS("local_anaesthetics"),
-    LACTOSE("lactose"),
-    HOUSE_DUST("House_dust"),
-    PRESERVATIVES("preservatives"),
-    VITAMIN_B("vitamin_b");
+    ANTIBIOTICS("Antibiotikum"),
+    FRUCTOSE("Fruktose"),
+    FOODS("Nahrungsmittel"),
+    POLLEN("Pollen"),
+    RADIO_OPAQUE_SUBSTANCE("Radiodurchlässige Substanz"),
+    ANIMAL_HAIR("Tierhaare"),
+    LOCAL_ANAESTHETICS("Anästhesie"),
+    LACTOSE("Laktose"),
+    HOUSE_DUST("Hausstaub"),
+    PRESERVATIVES("Kondome"),
+    VITAMIN_B("B-Vitamine");
 
     private final String allergyValue;
 

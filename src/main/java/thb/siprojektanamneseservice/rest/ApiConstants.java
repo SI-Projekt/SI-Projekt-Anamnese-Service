@@ -18,6 +18,7 @@ public class ApiConstants {
 
     // Person
     public static final String PERSON_ROOT = API + "/persons";
+    public static final String PERSON_ROOT_SEARCH = PERSON_ROOT + "/search";
     public static final String PERSON_ITEM = PERSON_ROOT + "/{personId}";
 
     public static final String PERSON_DIAGNOSIS_ROOT = PERSON_ITEM + "/diagnosis";
